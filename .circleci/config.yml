@@ -8,11 +8,7 @@ workflows:
   pipeline:
     jobs:
       - install_dependencies
-      - build:
-          requires:
-            - e2e_tests
-            - lint
-            - unit_tests
+      - build
 
 #############################################################
 # Define jobs
