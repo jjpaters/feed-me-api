@@ -1,0 +1,41 @@
+version: 2.1
+
+#############################################################
+# Define workflows
+#############################################################
+workflows:
+  version: 2
+  pipeline:
+    jobs:
+      - install_dependencies
+      - build:
+          requires:
+            - e2e_tests
+            - lint
+            - unit_tests
+
+#############################################################
+# Define jobs
+#############################################################
+jobs:
+  install_dependencies:
+    working_directory: ~/app
+    docker:
+      - image: node:10.15-slim
+    steps:
+      - checkout
+      - restore_cache:
+          key: v1-{{ checksum "package.json" }}
+      - run: npm install
+      - save_cache:
+          key: v1-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+  build:
+    working_directory: ~/app
+    docker:
+      - image: node:10.15-slim
+    steps:
+      - checkout
+      - run: npm install
+      - run: npm run build
