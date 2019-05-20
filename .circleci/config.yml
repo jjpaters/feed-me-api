@@ -8,7 +8,9 @@ workflows:
   pipeline:
     jobs:
       - install_dependencies
-      - build
+      - build:
+          requires:
+            - install_dependencies
 
 #############################################################
 # Define jobs
