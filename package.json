@@ -7,10 +7,10 @@
   },
   "main": "app.js",
   "scripts": {
-    "code-coverage": "npm test && nyc report --reporter=text-lcov | coveralls",
+    "code-coverage": "npm test && ./node_modules/.bin/nyc report --reporter=text-lcov | ./node_modules/.bin/coveralls",
     "dev": "nodemon app.js",
     "start": "node ./bin/www",
-    "test": "nyc mocha ./tests --recursive"
+    "test": "./node_modules/.bin/nyc ./node_modules/.bin/mocha ./tests --recursive"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
