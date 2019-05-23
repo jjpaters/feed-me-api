@@ -1,7 +1,11 @@
 {
   "name": "feed-me-api",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": "10.15"
+  },
+  "main": "app.js",
   "scripts": {
     "dev": "nodemon app.js",
     "start": "node ./bin/www"

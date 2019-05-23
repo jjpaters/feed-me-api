@@ -8,12 +8,9 @@ workflows:
   pipeline:
     jobs:
       - install_dependencies
-      - build:
-          requires:
-            - install_dependencies
       - deploy:
           requires:
-            - build
+            - install_dependencies
           filters:
             branches:
               only: master
@@ -35,14 +32,6 @@ jobs:
           key: v1-{{ checksum "package.json" }}
           paths:
             - node_modules
-  build:
-    working_directory: ~/app
-    docker:
-      - image: node:10.15-slim
-    steps:
-      - checkout
-      - run: npm install
-      - run: npm run build
   deploy:
     docker:
       - image: buildpack-deps:trusty
