@@ -8,9 +8,12 @@ workflows:
   pipeline:
     jobs:
       - install_dependencies
-      - deploy:
+      - unit_tests:
           requires:
             - install_dependencies
+      - deploy:
+          requires:
+            - unit_tests
           filters:
             branches:
               only: master
@@ -32,6 +35,14 @@ jobs:
           key: v1-{{ checksum "package.json" }}
           paths:
             - node_modules
+  unit_tests:
+    docker:
+      - image: node:10.15-slim
+    steps:
+      - checkout
+      - run:
+          name: Run unit tests
+          command: npm test
   deploy:
     docker:
       - image: buildpack-deps:trusty
