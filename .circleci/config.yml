@@ -8,6 +8,9 @@ workflows:
   pipeline:
     jobs:
       - install_dependencies
+      - unit_tests:
+          requires:
+            - install_dependencies
       - deploy:
           requires:
             - install_dependencies
@@ -32,6 +35,21 @@ jobs:
           key: v1-{{ checksum "package.json" }}
           paths:
             - node_modules
+  unit_tests:
+    docker:
+      - image: node:10.15-slim
+    steps:
+      - checkout
+      - restore_cache:
+          key: v1-{{ checksum "package.json" }}
+      - run: npm install
+      - save_cache:
+          key: v1-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+      - run:
+          name: Run unit tests
+          command: npm run code-coverage
   deploy:
     docker:
       - image: buildpack-deps:trusty
