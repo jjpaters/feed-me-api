@@ -42,7 +42,7 @@ jobs:
       - checkout
       - run:
           name: Run unit tests
-          command: npm code-coverage
+          command: npm run code-coverage
   deploy:
     docker:
       - image: buildpack-deps:trusty
