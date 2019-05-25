@@ -1,4 +1,5 @@
 const request = require('supertest');
+const mongoose = require('mongoose');
 
 let req = {
     body: {}
@@ -23,6 +24,7 @@ describe('Health Route', function () {
 
         afterEach(function (done) {
             server.close(done);
+            mongoose.disconnect();
         })
 
         it('Should return a http status code of 200', function (done) {

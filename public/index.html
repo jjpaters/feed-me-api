@@ -21,7 +21,7 @@
     <div class="jumbotron">
       <h1 class="display-1">Feed Me API</h1>
       <p class="lead">
-        Documentation on the API Endpoints that are exposed by the Feed Me API.
+        Documentation on the API endpoints that are exposed by the Feed Me API.
       </p>
     </div>
   </main>
@@ -29,7 +29,7 @@
   <section class="container">
     <h2 class="display-4">Health Endpoint</h2>
     <p>
-      Endpoints for determining the health of the API
+      Endpoints for determining the health of the API.
     </p>
     <table class="table table-striped">
       <thead>
@@ -41,6 +41,27 @@
         <tr>
           <td>GET</td>
           <td>/api/health</td>
+          <td>Get the health status</td>
+        </tr>
+      </thead>
+    </table>
+  </section>
+
+  <section class="container">
+    <h2 class="display-4">Recipes Endpoint</h2>
+    <p>
+      Endpoints for interacting with user Recipes.
+    </p>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>Endpoint</th>
+          <th>Usage</th>
+        </tr>
+        <tr>
+          <td>GET</td>
+          <td>/api/recipes/:id</td>
           <td>Get the health status</td>
         </tr>
       </thead>
