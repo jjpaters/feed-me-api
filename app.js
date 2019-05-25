@@ -2,8 +2,11 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const mongoose = require('mongoose');
 
-const healthRouter = require('./routes/health');
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
+mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error: '));
+mongoose.connection.once('open', console.info.bind(console, 'Connected to MongoDB'));
 
 const app = express();
 
@@ -13,6 +16,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api/health', healthRouter);
+app.use('/api/health', require('./api/health/health.route'));
+app.use('/api/recipes', require('./api/recipes/recipes.route'));
 
 module.exports = app;

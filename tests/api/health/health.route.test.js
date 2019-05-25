@@ -1,4 +1,5 @@
 const request = require('supertest');
+const mongoose = require('mongoose');
 
 let req = {
     body: {}
@@ -17,25 +18,27 @@ describe('Health Route', function () {
         var server;
 
         beforeEach(function () {
-            delete require.cache[require.resolve('../../bin/www')];
-            server = require('../../bin/www', { bustCache: true });
+            delete require.cache[require.resolve('../../../bin/www')];
+            server = require('../../../bin/www', { bustCache: true });
         });
 
         afterEach(function (done) {
             server.close(done);
+            mongoose.disconnect();
         })
-    
-        it ('Should return a http status code of 200', function (done) {
+
+        it('Should return a http status code of 200', function (done) {
             request(server)
                 .get('/api/health')
                 .expect(200, done);
         });
 
-        it ('Should return status of "pass"', function (done) {
+        it('Should return status of "pass"', function (done) {
             request(server)
                 .get('/api/health')
                 .expect(200, {
-                    status: 'pass'
+                    status: 'pass',
+                    database: false
                 }, done);
         });
     });
