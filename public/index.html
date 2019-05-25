@@ -34,9 +34,9 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>Method</th>
-          <th>Endpoint</th>
-          <th>Usage</th>
+          <th class="w-25">Method</th>
+          <th class="w-25">Endpoint</th>
+          <th class="w-50">Usage</th>
         </tr>
         <tr>
           <td>GET</td>
@@ -55,14 +55,34 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>Method</th>
-          <th>Endpoint</th>
-          <th>Usage</th>
+          <th class="w-25">Method</th>
+          <th class="w-25">Endpoint</th>
+          <th class="w-50">Usage</th>
+        </tr>
+        <tr>
+          <td>DELETE</td>
+          <td>/api/recipes/:id</td>
+          <td>Delete a recipe by ID</td>
+        </tr>
+        <tr>
+          <td>GET</td>
+          <td>/api/recipes?userId:id</td>
+          <td>Get recipes; filter by a User ID</td>
         </tr>
         <tr>
           <td>GET</td>
           <td>/api/recipes/:id</td>
-          <td>Get the health status</td>
+          <td>Get a recipe by ID</td>
+        </tr>
+        <tr>
+          <td>POST</td>
+          <td>/api/recipes</td>
+          <td>Create a recipe</td>
+        </tr>
+        <tr>
+          <td>PUT</td>
+          <td>/api/recipes/:id</td>
+          <td>Update a recipe by ID</td>
         </tr>
       </thead>
     </table>
