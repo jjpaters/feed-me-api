@@ -13,7 +13,7 @@ workflows:
             - install_dependencies
       - deploy:
           requires:
-            - install_dependencies
+            - unit_tests
           filters:
             branches:
               only: master
