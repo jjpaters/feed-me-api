@@ -3,6 +3,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const exchangeUserId = require('./middleware/exchangeUserId');
 
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
@@ -15,6 +16,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(exchangeUserId);
