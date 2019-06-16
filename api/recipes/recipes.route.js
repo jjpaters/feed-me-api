@@ -46,6 +46,11 @@ router.post('/', jwtCheck, ensureUserId.exists, function (req, res, next) {
     const createRecipe = new Recipe({
         title: req.body.title,
         description: req.body.description,
+        prepTime: req.body.prepTime,
+        cookTime: req.body.cookTime,
+        servings: req.body.servings,
+        ingredients: req.body.ingredients,
+        steps: req.body.steps,
         userId: req.userId
     });
 
@@ -65,6 +70,11 @@ router.put('/:id', jwtCheck, ensureUserId.exists, function (req, res, next) {
         _id: req.params.id,
         title: req.body.title,
         description: req.body.description,
+        prepTime: req.body.prepTime,
+        cookTime: req.body.cookTime,
+        servings: req.body.servings,
+        ingredients: req.body.ingredients,
+        steps: req.body.steps,
         updated: new Date()
     });
 
