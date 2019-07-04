@@ -10,7 +10,9 @@
     "code-coverage": "npm test && ./node_modules/.bin/nyc report --reporter=text-lcov | ./node_modules/.bin/coveralls",
     "dev": "nodemon --inspect ./bin/www",
     "start": "node ./bin/www",
-    "test": "./node_modules/.bin/nyc ./node_modules/.bin/mocha ./tests --recursive"
+    "test": "./node_modules/.bin/nyc ./node_modules/.bin/mocha ./tests --recursive",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -23,7 +25,8 @@
     "method-override": "^3.0.0",
     "mongoose": "^5.5.11",
     "morgan": "~1.9.1",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
@@ -34,5 +37,6 @@
     "nyc": "^14.1.1",
     "really-need": "^1.9.2",
     "supertest": "^4.0.2"
-  }
+  },
+  "snyk": true
 }
