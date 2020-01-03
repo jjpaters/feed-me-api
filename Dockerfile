@@ -1,12 +1,22 @@
-# Stage 1: Build time
-FROM node:10.15-slim AS build
-
-COPY . /src/
+# Build
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
 
 WORKDIR /src
 
-RUN npm install
+COPY . .
 
-EXPOSE 3000
+RUN dotnet restore
 
-CMD ["node", "app.js"]
+RUN dotnet publish FeedMe.Api/FeedMe.Api.csproj -c Release -o out
+
+
+# Run
+FROM mcr.microsoft.com/dotnet/core/runtime:3.1 AS base
+
+EXPOSE 80
+
+WORKDIR /app
+
+COPY --from=build /src/FeedMe.Api/out .
+
+ENTRYPOINT ["dotnet", "app/FeedMe.Api.dll"]

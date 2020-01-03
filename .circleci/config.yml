@@ -7,12 +7,11 @@ workflows:
   version: 2
   pipeline:
     jobs:
-      - install_dependencies
-      - unit_tests:
+      - build
+      - unit_tests
+      - build_image:
           requires:
-            - install_dependencies
-      - deploy:
-          requires:
+            - build
             - unit_tests
           filters:
             branches:
@@ -22,40 +21,29 @@ workflows:
 # Define jobs
 #############################################################
 jobs:
-  install_dependencies:
-    working_directory: ~/app
+  build:
     docker:
-      - image: node:10.15-slim
+      - image: mcr.microsoft.com/dotnet/core/sdk:3.1
     steps:
       - checkout
-      - restore_cache:
-          key: v1-{{ checksum "package.json" }}
-      - run: npm install
-      - save_cache:
-          key: v1-{{ checksum "package.json" }}
-          paths:
-            - node_modules
+      - run:
+          name: Build solution
+          command: dotnet build
+
   unit_tests:
     docker:
-      - image: node:10.15-slim
+      - image: mcr.microsoft.com/dotnet/core/sdk:3.1
     steps:
       - checkout
-      - restore_cache:
-          key: v1-{{ checksum "package.json" }}
-      - run: npm install
-      - save_cache:
-          key: v1-{{ checksum "package.json" }}
-          paths:
-            - node_modules
       - run:
-          name: Run unit tests
-          command: npm run code-coverage
-  deploy:
+          name: Build solution
+          command: dotnet test
+
+  build_image:
     docker:
-      - image: buildpack-deps:trusty
+      - image: mcr.microsoft.com/dotnet/core/sdk:3.1
     steps:
       - checkout
       - run:
-          name: Deploy Master to Heroku
-          command: |
-            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+          name: Build solution
+          command: docker build -t feed-me-api .
