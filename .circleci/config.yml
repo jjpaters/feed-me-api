@@ -13,9 +13,6 @@ workflows:
           requires:
             - build
             - unit_tests
-          filters:
-            branches:
-              only: master
 
 #############################################################
 # Define jobs
