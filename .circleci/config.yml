@@ -38,7 +38,7 @@ jobs:
 
   build_image:
     docker:
-      - image: docker:18.09.3-ce
+      - image: docker:17.05.0-ce-git 
     steps:
       - checkout
       - run:
