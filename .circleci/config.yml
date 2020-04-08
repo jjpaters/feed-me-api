@@ -76,7 +76,6 @@ jobs:
             aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
             aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
       - run: ls
-      - run: dir
       - run:
           name: Deploy AWS Lambda
-          command: aws lambda update-function-code --function-name feed-me-lambda --zip-file fileb://function.zip
+          command: aws lambda update-function-code --function-name feed-me-lambda --zip-file fileb://dist/function.zip
