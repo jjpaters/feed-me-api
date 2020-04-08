@@ -77,4 +77,4 @@ jobs:
             aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
       - run:
           name: Deploy AWS Lambda
-          command: aws update-function-code --function-name feed-me-lambda --zip-file function.zip
+          command: aws lambda update-function-code --function-name feed-me-lambda --zip-file function.zip
