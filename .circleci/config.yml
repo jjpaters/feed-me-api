@@ -8,6 +8,7 @@ orbs:
 #############################################################
 workflows:
   version: 2
+  aws-cli:
   pipeline:
     jobs:
       - install_dependencies
