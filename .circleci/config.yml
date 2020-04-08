@@ -1,8 +1,5 @@
 version: 2.1
 
-orbs:
-  aws-cli: circleci/aws-cli@0.1.19
-
 #############################################################
 # Define workflows
 #############################################################
@@ -10,41 +7,75 @@ workflows:
   version: 2
   pipeline:
     jobs:
-      - build
-      - unit_tests
-      - build_image:
+      - install_dependencies
+      - build:
+          requires:
+            - install_dependencies
+      - deploy:
           requires:
             - build
-            - unit_tests
+            - lint
+          filters:
+            branches:
+              only:
+                - master
 
 #############################################################
 # Define jobs
 #############################################################
 jobs:
+  install_dependencies:
+    working_directory: ~/app
+    docker:
+      - image: circleci/node:10
+    steps:
+      - checkout
+      - restore_cache:
+          key: v1-{{ checksum "package.json" }}
+      - run: npm install
+      - save_cache:
+          key: v1-{{ checksum "package.json" }}
+          paths:
+            - node_modules
   build:
+    working_directory: ~/app
     docker:
-      - image: mcr.microsoft.com/dotnet/core/sdk:3.1
+      - image: circleci/node:10
     steps:
       - checkout
-      - run:
-          name: Build solution
-          command: dotnet build
-
-  unit_tests:
+      - run: npm install
+      - run: chmod +x pack.sh
+      - run: ./pack.sh
+      - persist_to_workspace:
+          root: .
+          paths:
+            - dist
+  deploy:
     docker:
-      - image: mcr.microsoft.com/dotnet/core/sdk:3.1
+      - image: docker:17.05.0-ce-git
     steps:
       - checkout
+      - attach_workspace:
+          at: .
       - run:
-          name: Build solution
-          command: dotnet test
-
-  build_image:
-    docker:
-      - image: docker:17.05.0-ce-git 
-    steps:
-      - checkout
-      - setup_remote_docker
+          name: Install bash and curl
+          command: |
+            apk update
+            apk add -y curl
+            apk add -y bash
+            apk update
+            apk upgrade
       - run:
-          name: Build solution
-          command: docker build -t feed-me-api .
+          name: Install CLI
+          command: |
+            apk add --update python python-dev py-pip build-base
+            pip install awscli
+      - run:
+          name: Set Credentials
+          command: |          
+            aws configure set region us-east-1
+            aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+            aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+      - run:
+          name: Deploy AWS Lambda
+          command: aws update-function-code --function-name feed-me-lambda --zip-file function.zip
