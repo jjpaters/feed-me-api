@@ -8,16 +8,20 @@ workflows:
   pipeline:
     jobs:
       - install_dependencies
+      - lint:
+          requires:
+            - install_dependencies
       - build:
           requires:
             - install_dependencies
       - deploy:
           requires:
             - build
-          #filters:
-          #  branches:
-          #    only:
-          #      - master
+            - lint
+          filters:
+            branches:
+              only:
+                - master
 
 #############################################################
 # Define jobs
@@ -36,6 +40,14 @@ jobs:
           key: v1-{{ checksum "package.json" }}
           paths:
             - node_modules
+  lint:
+    working_directory: ~/app
+    docker:
+      - image: circleci/node:10
+    steps:
+      - checkout
+      - run: npm install
+      - run: npm run lint
   build:
     working_directory: ~/app
     docker:
@@ -75,7 +87,6 @@ jobs:
             aws configure set region us-east-1
             aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
             aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-      - run: ls
       - run:
           name: Deploy AWS Lambda
           command: aws lambda update-function-code --function-name feed-me-lambda --zip-file fileb://dist/function.zip
