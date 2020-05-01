@@ -1,19 +1,30 @@
 {
   "name": "feed-me-api",
   "version": "1.0.0",
-  "description": "[![CircleCI](https://circleci.com/gh/jjpaters/feed-me-api/tree/master.svg?style=svg)](https://circleci.com/gh/jjpaters/feed-me-api/tree/master) [![DeepScan grade](https://deepscan.io/api/teams/3232/projects/8823/branches/112128/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=3232&pid=8823&bid=112128)",
+  "description": "Backend for Feed Me Web",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
+    "dev": "npm run build && npm start",
+    "lint": "tslint --project .",
+    "start": "node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jjpaters/feed-me-api.git"
   },
-  "author": "",
+  "author": "Justin Paterson",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/jjpaters/feed-me-api/issues"
   },
-  "homepage": "https://github.com/jjpaters/feed-me-api#readme"
+  "homepage": "https://github.com/jjpaters/feed-me-api#readme",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.51",
+    "@types/node": "^13.13.4",
+    "ts-node": "^8.9.1",
+    "tslint": "^6.1.2",
+    "typescript": "^3.8.3"
+  }
 }
