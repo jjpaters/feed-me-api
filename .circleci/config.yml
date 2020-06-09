@@ -80,5 +80,6 @@ jobs:
       - run:
           name: "Create zip"
           command: |
-            cd ./dist/ && zip -r function.zip .
-            cd ./dist/ && cp function.zip ../function.zip
+            cd ./dist/
+            zip -r function.zip .
+            cp function.zip ../function.zip
