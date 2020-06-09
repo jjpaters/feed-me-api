@@ -83,3 +83,6 @@ jobs:
             cd ./dist/
             zip -r function.zip .
             cp function.zip ../function.zip
+      - run:
+          name: Deploy AWS Lambda
+          command: aws lambda update-function-code --function-name feed-me-lambda --zip-file fileb://dist/function.zip
