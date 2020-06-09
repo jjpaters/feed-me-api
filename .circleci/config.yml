@@ -22,6 +22,7 @@ workflows:
 # Define jobs
 #############################################################
 jobs:
+
   build:
     working_directory: ~/app
     docker:
@@ -30,7 +31,16 @@ jobs:
       - checkout
       - run:
           name: "Build solution"
-          command: dotnet build --configuration Release
+          command: dotnet build --configuration Release --output dist
+      - run:
+          name: "Create zip"
+          command: |
+            cd ./dist/ && zip -r function.zip .
+            cd ./dist/ && cp function.zip ../function.zip
+      - persist_to_workspace:
+          root: .
+          paths:
+            - dist
 
   test:
     working_directory: ~/app
