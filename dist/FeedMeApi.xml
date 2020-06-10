@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FeedMeApi</name>
+    </assembly>
+    <members>
+        <member name="T:FeedMeApi.Controllers.Diagnostics.HealthController">
+            <summary>
+            Health Controller
+            </summary>
+        </member>
+        <member name="M:FeedMeApi.Controllers.Diagnostics.HealthController.GetHealth">
+            <summary>
+            Check the health of the API.
+            </summary>
+            <returns>Status of the API</returns>
+        </member>
+        <member name="T:FeedMeApi.LambdaEntryPoint">
+            <summary>
+            This class extends from APIGatewayProxyFunction which contains the method FunctionHandlerAsync which is the 
+            actual Lambda function entry point. The Lambda handler field should be set to
+            
+            FeedMeApi::FeedMeApi.LambdaEntryPoint::FunctionHandlerAsync
+            </summary>
+        </member>
+        <member name="M:FeedMeApi.LambdaEntryPoint.Init(Microsoft.AspNetCore.Hosting.IWebHostBuilder)">
+            <summary>
+            The builder has configuration, logging and Amazon API Gateway already configured. The startup class
+            needs to be configured in this method using the UseStartup() method.
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="M:FeedMeApi.LambdaEntryPoint.Init(Microsoft.Extensions.Hosting.IHostBuilder)">
+            <summary>
+            Use this override to customize the services registered with the IHostBuilder. 
+            
+            It is recommended not to call ConfigureWebHostDefaults to configure the IWebHostBuilder inside this method.
+            Instead customize the IWebHostBuilder in the Init(IWebHostBuilder) overload.
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="T:FeedMeApi.LocalEntryPoint">
+            <summary>
+            The Main function can be used to run the ASP.NET Core application locally using the Kestrel webserver.
+            </summary>
+        </member>
+        <member name="M:FeedMeApi.LocalEntryPoint.Main(System.String[])">
+            <summary>
+            Main entry point for running the API locally.
+            </summary>
+            <param name="args">Input arguments</param>
+        </member>
+        <member name="M:FeedMeApi.LocalEntryPoint.CreateHostBuilder(System.String[])">
+            <summary>
+            Creates a generic host builder.
+            </summary>
+            <param name="args">Input arguments</param>
+            <returns>Instace of IHostBuilder</returns>
+        </member>
+        <member name="T:FeedMeApi.Models.Health">
+            <summary>
+            Health Object
+            </summary>
+        </member>
+        <member name="P:FeedMeApi.Models.Health.Status">
+            <summary>
+            Indicates the health status.
+            </summary>
+        </member>
+        <member name="P:FeedMeApi.Models.Health.Time">
+            <summary>
+            Indicates when the health check was performed.
+            </summary>
+        </member>
+        <member name="M:FeedMeApi.Models.Health.#ctor">
+            <summary>
+            Initializes Health.
+            </summary>
+        </member>
+        <member name="T:FeedMeApi.Models.HealthStatuses">
+            <summary>
+            Health Status Object
+            </summary>
+        </member>
+        <member name="F:FeedMeApi.Models.HealthStatuses.Pass">
+            <summary>
+            Indicated a healthy API check.
+            </summary>
+        </member>
+        <member name="F:FeedMeApi.Models.HealthStatuses.Fail">
+            <summary>
+            Indicates an unhealthy API check.
+            </summary>
+        </member>
+        <member name="T:FeedMeApi.Startup">
+            <summary>
+            Startup
+            </summary>
+        </member>
+        <member name="P:FeedMeApi.Startup.Configuration">
+            <summary>
+            Global configuration object.
+            </summary>
+        </member>
+        <member name="M:FeedMeApi.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Initialized Startup.
+            </summary>
+            <param name="configuration">Instance of IConfiguration</param>
+        </member>
+        <member name="M:FeedMeApi.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Configures additional services.
+            </summary>
+            <param name="services">Instance of IServiceCollection</param>
+        </member>
+        <member name="M:FeedMeApi.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Configures the application.
+            </summary>
+            <param name="app">Instance of IApplicationBuilder</param>
+            <param name="env">Instance of IWebHostEnvironment</param>
+        </member>
+    </members>
+</doc>

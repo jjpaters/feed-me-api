@@ -8,9 +8,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeedMeApi.Tests", "FeedMeApi.Tests\FeedMeApi.Tests.csproj", "{A51505B0-098F-488A-BFC0-5726970DB54E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeedMeApi.Tests", "FeedMeApi.Tests\FeedMeApi.Tests.csproj", "{3C263F94-E530-48D1-BA5C-2154CE697E4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeedMeApi", "FeedMeApi\FeedMeApi.csproj", "{24D306B6-59F6-4E87-A0A6-1182B61BEBAB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeedMeApi", "FeedMeApi\FeedMeApi.csproj", "{CDBA0FE6-5B89-447C-A54F-20CAE4230D46}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,13 +18,13 @@ Global
 		Release|anycpu = Release|anycpu
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A51505B0-098F-488A-BFC0-5726970DB54E}.Debug|anycpu.ActiveCfg = Debug|Any CPU
-		{A51505B0-098F-488A-BFC0-5726970DB54E}.Debug|anycpu.Build.0 = Debug|Any CPU
-		{A51505B0-098F-488A-BFC0-5726970DB54E}.Release|anycpu.ActiveCfg = Release|Any CPU
-		{A51505B0-098F-488A-BFC0-5726970DB54E}.Release|anycpu.Build.0 = Release|Any CPU
-		{24D306B6-59F6-4E87-A0A6-1182B61BEBAB}.Debug|anycpu.ActiveCfg = Debug|Any CPU
-		{24D306B6-59F6-4E87-A0A6-1182B61BEBAB}.Debug|anycpu.Build.0 = Debug|Any CPU
-		{24D306B6-59F6-4E87-A0A6-1182B61BEBAB}.Release|anycpu.ActiveCfg = Release|Any CPU
-		{24D306B6-59F6-4E87-A0A6-1182B61BEBAB}.Release|anycpu.Build.0 = Release|Any CPU
+		{3C263F94-E530-48D1-BA5C-2154CE697E4C}.Debug|anycpu.ActiveCfg = Debug|Any CPU
+		{3C263F94-E530-48D1-BA5C-2154CE697E4C}.Debug|anycpu.Build.0 = Debug|Any CPU
+		{3C263F94-E530-48D1-BA5C-2154CE697E4C}.Release|anycpu.ActiveCfg = Release|Any CPU
+		{3C263F94-E530-48D1-BA5C-2154CE697E4C}.Release|anycpu.Build.0 = Release|Any CPU
+		{CDBA0FE6-5B89-447C-A54F-20CAE4230D46}.Debug|anycpu.ActiveCfg = Debug|Any CPU
+		{CDBA0FE6-5B89-447C-A54F-20CAE4230D46}.Debug|anycpu.Build.0 = Debug|Any CPU
+		{CDBA0FE6-5B89-447C-A54F-20CAE4230D46}.Release|anycpu.ActiveCfg = Release|Any CPU
+		{CDBA0FE6-5B89-447C-A54F-20CAE4230D46}.Release|anycpu.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
