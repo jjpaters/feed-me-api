@@ -43,6 +43,18 @@ namespace FeedMeApi
                     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                 });
 
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder
+                        .WithOrigins(Configuration["AllowOrigins"])
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                });
+            });
+
             services.AddSwaggerGen(c =>
             {
                 var apiInfo = new OpenApiInfo
