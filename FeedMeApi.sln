@@ -1,0 +1,30 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{488473AD-E04A-4532-9255-0E7B90C08CCF}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+		.circleci\config.yml = .circleci\config.yml
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeedMeApi.Tests", "FeedMeApi.Tests\FeedMeApi.Tests.csproj", "{A51505B0-098F-488A-BFC0-5726970DB54E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeedMeApi", "FeedMeApi\FeedMeApi.csproj", "{24D306B6-59F6-4E87-A0A6-1182B61BEBAB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|anycpu = Debug|anycpu
+		Release|anycpu = Release|anycpu
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A51505B0-098F-488A-BFC0-5726970DB54E}.Debug|anycpu.ActiveCfg = Debug|Any CPU
+		{A51505B0-098F-488A-BFC0-5726970DB54E}.Debug|anycpu.Build.0 = Debug|Any CPU
+		{A51505B0-098F-488A-BFC0-5726970DB54E}.Release|anycpu.ActiveCfg = Release|Any CPU
+		{A51505B0-098F-488A-BFC0-5726970DB54E}.Release|anycpu.Build.0 = Release|Any CPU
+		{24D306B6-59F6-4E87-A0A6-1182B61BEBAB}.Debug|anycpu.ActiveCfg = Debug|Any CPU
+		{24D306B6-59F6-4E87-A0A6-1182B61BEBAB}.Debug|anycpu.Build.0 = Debug|Any CPU
+		{24D306B6-59F6-4E87-A0A6-1182B61BEBAB}.Release|anycpu.ActiveCfg = Release|Any CPU
+		{24D306B6-59F6-4E87-A0A6-1182B61BEBAB}.Release|anycpu.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

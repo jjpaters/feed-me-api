@@ -7,17 +7,12 @@ workflows:
   version: 2
   pipeline:
     jobs:
-      - install_dependencies
-      - lint:
-          requires:
-            - install_dependencies
-      - build:
-          requires:
-            - install_dependencies
+      - build
+      - test
       - deploy:
           requires:
             - build
-            - lint
+            - test
           filters:
             branches:
               only:
@@ -27,40 +22,34 @@ workflows:
 # Define jobs
 #############################################################
 jobs:
-  install_dependencies:
-    working_directory: ~/app
-    docker:
-      - image: circleci/node:10
-    steps:
-      - checkout
-      - restore_cache:
-          key: v1-{{ checksum "package.json" }}
-      - run: npm install
-      - save_cache:
-          key: v1-{{ checksum "package.json" }}
-          paths:
-            - node_modules
-  lint:
-    working_directory: ~/app
-    docker:
-      - image: circleci/node:10
-    steps:
-      - checkout
-      - run: npm install
-      - run: npm run lint
+
   build:
     working_directory: ~/app
     docker:
-      - image: circleci/node:10
+      - image: mcr.microsoft.com/dotnet/core/sdk:3.1
     steps:
       - checkout
-      - run: npm install
-      - run: chmod +x pack.sh
-      - run: ./pack.sh
+      - run:
+          name: "Build solution"
+          command: dotnet build --configuration Release --output dist
       - persist_to_workspace:
           root: .
           paths:
             - dist
+
+  test:
+    working_directory: ~/app
+    docker:
+      - image: mcr.microsoft.com/dotnet/core/sdk:3.1
+    steps:
+      - checkout
+      - run:
+          name: "Install project dependencies"
+          command: dotnet restore
+      - run:
+          name: "Run unit tests"
+          command: dotnet test
+
   deploy:
     docker:
       - image: docker:17.05.0-ce-git
@@ -74,6 +63,7 @@ jobs:
             apk update
             apk add -y curl
             apk add -y bash
+            apk add -y zip
             apk update
             apk upgrade
       - run:
@@ -87,6 +77,12 @@ jobs:
             aws configure set region us-east-1
             aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
             aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+      - run:
+          name: "Create zip"
+          command: |
+            cd ./dist/
+            zip -r function.zip .
+            cp function.zip ../function.zip
       - run:
           name: Deploy AWS Lambda
           command: aws lambda update-function-code --function-name feed-me-lambda --zip-file fileb://dist/function.zip
