@@ -82,6 +82,8 @@ namespace FeedMeApi
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseXRay("FeedMeApi");
+
             app.UseHttpsRedirection();
 
             app.UseSwagger();
