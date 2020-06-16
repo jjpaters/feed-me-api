@@ -10,6 +10,7 @@
     <PackageReference Include="Amazon.Lambda.AspNetCoreServer" Version="5.1.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.4.1" />
     <PackageReference Include="AWSXRayRecorder.Handlers.AspNetCore" Version="2.7.1" />
+    <PackageReference Include="AWSSDK.Extensions.CognitoAuthentication" Version="0.9.4" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="Properties\launchSettings.json">
@@ -20,5 +21,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\Diagnostics\" />
+    <Folder Include="Models\Recipes\" />
+    <Folder Include="Models\Auth\" />
+    <Folder Include="Controllers\Recipes\" />
+    <Folder Include="Repositories\" />
+    <Folder Include="Repositories\Recipes\" />
   </ItemGroup>
 </Project>

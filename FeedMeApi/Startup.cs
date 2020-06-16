@@ -2,6 +2,7 @@
 using System.IO;
 using System.Reflection;
 using System.Text.Json.Serialization;
+using FeedMeApi.Repositories.Recipes;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -68,6 +69,8 @@ namespace FeedMeApi
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+
+            services.AddTransient<IRecipeRepository, RecipeRepository>();
         }
 
         /// <summary>
