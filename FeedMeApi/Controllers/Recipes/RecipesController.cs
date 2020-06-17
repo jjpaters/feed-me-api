@@ -19,7 +19,7 @@ namespace FeedMeApi.Controllers.Recipes
             this.recipeRepository = recipeRepository;
         }
 
-        [HttpGet("recipeId")]
+        [HttpGet("{recipeId}")]
         [ProducesResponseType(200)]
         public async Task<ActionResult<Recipe>> GetRecipe(string userId, string recipeId)
         {
