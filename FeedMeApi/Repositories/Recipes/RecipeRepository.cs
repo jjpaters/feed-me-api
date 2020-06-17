@@ -87,9 +87,9 @@ namespace FeedMeApi.Repositories.Recipes
             {
                 User = new Models.Auth.User
                 {
-                    UserId = "100"
+                    UserId = "3c809e9b-ea1a-4fd5-a35d-4c2c748c24fa"
                 },
-                RecipeId = Guid.NewGuid().ToString(),
+                RecipeId = "7a6f2dd8-83f1-453a-b356-fbded184ade9",
                 Title = "Recipe 1",
                 Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eu bibendum lacus. Proin pharetra nibh a velit varius bibendum. Praesent nec consequat orci. Nunc feugiat orci felis, quis varius mauris mollis luctus. Cras elementum lorem id suscipit consequat. Cras malesuada, leo eget pretium euismod, nibh lectus sollicitudin neque, id vehicula est ex quis quam. Aliquam ac maximus nulla.",
                 Servings = 1,
@@ -103,9 +103,9 @@ namespace FeedMeApi.Repositories.Recipes
             {
                 User = new Models.Auth.User
                 {
-                    UserId = "100"
+                    UserId = "3c809e9b-ea1a-4fd5-a35d-4c2c748c24fa"
                 },
-                RecipeId = Guid.NewGuid().ToString(),
+                RecipeId = "de79647b-f6fa-49d1-95dd-fc03824f49d5",
                 Title = "Recipe 2",
                 Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eu bibendum lacus. Proin pharetra nibh a velit varius bibendum. Praesent nec consequat orci. Nunc feugiat orci felis, quis varius mauris mollis luctus. Cras elementum lorem id suscipit consequat. Cras malesuada, leo eget pretium euismod, nibh lectus sollicitudin neque, id vehicula est ex quis quam. Aliquam ac maximus nulla.",
                 Servings = 1,
@@ -119,9 +119,9 @@ namespace FeedMeApi.Repositories.Recipes
             {
                 User = new Models.Auth.User
                 {
-                    UserId = "100"
+                    UserId = "3c809e9b-ea1a-4fd5-a35d-4c2c748c24fa"
                 },
-                RecipeId = Guid.NewGuid().ToString(),
+                RecipeId = "edd370d7-ff4f-482f-9c6d-a95857038dc2",
                 Title = "Recipe 3",
                 Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eu bibendum lacus. Proin pharetra nibh a velit varius bibendum. Praesent nec consequat orci. Nunc feugiat orci felis, quis varius mauris mollis luctus. Cras elementum lorem id suscipit consequat. Cras malesuada, leo eget pretium euismod, nibh lectus sollicitudin neque, id vehicula est ex quis quam. Aliquam ac maximus nulla.",
                 Servings = 1,
@@ -135,9 +135,9 @@ namespace FeedMeApi.Repositories.Recipes
             {
                 User = new Models.Auth.User
                 {
-                    UserId = "100"
+                    UserId = "3c809e9b-ea1a-4fd5-a35d-4c2c748c24fa"
                 },
-                RecipeId = Guid.NewGuid().ToString(),
+                RecipeId = "85ccb0c2-bba4-422f-b0f5-3586a4444430",
                 Title = "Recipe 4",
                 Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eu bibendum lacus. Proin pharetra nibh a velit varius bibendum. Praesent nec consequat orci. Nunc feugiat orci felis, quis varius mauris mollis luctus. Cras elementum lorem id suscipit consequat. Cras malesuada, leo eget pretium euismod, nibh lectus sollicitudin neque, id vehicula est ex quis quam. Aliquam ac maximus nulla.",
                 Servings = 1,
@@ -151,9 +151,9 @@ namespace FeedMeApi.Repositories.Recipes
             {
                 User = new Models.Auth.User
                 {
-                    UserId = "100"
+                    UserId = "3c809e9b-ea1a-4fd5-a35d-4c2c748c24fa"
                 },
-                RecipeId = Guid.NewGuid().ToString(),
+                RecipeId = "717d757e-6c00-443a-a219-b0f8121345a8",
                 Title = "Recipe 5",
                 Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eu bibendum lacus. Proin pharetra nibh a velit varius bibendum. Praesent nec consequat orci. Nunc feugiat orci felis, quis varius mauris mollis luctus. Cras elementum lorem id suscipit consequat. Cras malesuada, leo eget pretium euismod, nibh lectus sollicitudin neque, id vehicula est ex quis quam. Aliquam ac maximus nulla.",
                 Servings = 1,
