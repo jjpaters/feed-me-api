@@ -19,15 +19,24 @@ namespace FeedMeApi.Controllers.Recipes
             this.recipeRepository = recipeRepository;
         }
 
+        [HttpDelete("{recipeId}")]
+        [ProducesResponseType(200)]
+        public async Task<ActionResult> DeleteRecipe(string userId, int recipeId)
+        {
+            await this.recipeRepository.DeleteRecipe(userId, recipeId);
+
+            return NoContent();
+        }
+
         [HttpGet("{recipeId}")]
         [ProducesResponseType(200)]
-        public async Task<ActionResult<Recipe>> GetRecipe(string userId, string recipeId)
+        public async Task<ActionResult<Recipe>> GetRecipe(string userId, int recipeId)
         {
             var recipe = await this.recipeRepository.GetRecipe(userId, recipeId);
 
             if (recipe == null)
             {
-                return NotFound($"Unable to find a recipe.");
+                return NotFound($"Unable to find the recipe.");
             }
 
             return Ok(recipe);
@@ -41,5 +50,29 @@ namespace FeedMeApi.Controllers.Recipes
 
             return Ok(recipes);
         }
+
+        [HttpPost()]
+        [ProducesResponseType(200)]
+        public async Task<ActionResult<Recipe>> PostRecipe(string userId, [FromBody] CreateRecipe createRecipe)
+        {
+            var recipe = await this.recipeRepository.CreateRecipe(userId, createRecipe);
+
+            return Ok(recipe);
+        }
+
+        [HttpPatch("{recipeId}")]
+        [ProducesResponseType(200)]
+        public async Task<ActionResult<Recipe>> PatchRecipe(string userId, [FromBody] Recipe updateRecipe)
+        {
+            var recipe = await this.recipeRepository.UpdateRecipe(userId, updateRecipe);
+
+            if (recipe == null)
+            {
+                return NotFound($"Unable to find a recipe.");
+            }
+
+            return Ok(recipe);
+        }
+      
     }
 }

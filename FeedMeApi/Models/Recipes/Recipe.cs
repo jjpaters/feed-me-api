@@ -1,4 +1,4 @@
-﻿using FeedMeApi.Models.Auth;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FeedMeApi.Models.Recipes
 {
@@ -8,8 +8,14 @@ namespace FeedMeApi.Models.Recipes
     public class Recipe : CreateRecipe
     {
         /// <summary>
+        /// Identifies the recipe
+        /// </summary>
+        [Column("UserRecipeId")]
+        public int RecipeId { get; set; }
+
+        /// <summary>
         /// User information for the recipe
         /// </summary>
-        public User User { get; set; }
+        public string UserId { get; set; }
     }
 }

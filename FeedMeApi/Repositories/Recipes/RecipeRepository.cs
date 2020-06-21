@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FeedMeApi.Models.Recipes;
+using FeedMeApi.Repositories.Core;
+using Microsoft.EntityFrameworkCore;
 
 namespace FeedMeApi.Repositories.Recipes
 {
     public class RecipeRepository : IRecipeRepository
     {
-        private readonly IList<Recipe> recipes;
+        private readonly FeedMeContext database;
 
-        public RecipeRepository()
+        public RecipeRepository(FeedMeContext database)
         {
-            this.recipes = new List<Recipe>();
-            this.GenerateMockData();
+            this.database = database;
         }
 
         public async Task<Recipe> CreateRecipe(string userId, CreateRecipe createRecipe)
@@ -22,50 +22,75 @@ namespace FeedMeApi.Repositories.Recipes
             {
                 CookTime = createRecipe.CookTime,
                 Description = createRecipe.Description,
-                Ingredients = createRecipe.Ingredients,
                 PrepTime = createRecipe.PrepTime,
-                RecipeId = Guid.NewGuid().ToString(),
                 Servings = createRecipe.Servings,
-                Steps = createRecipe.Steps,
                 Title = createRecipe.Title,
-                User = new Models.Auth.User
-                {
-                    UserId = userId
-                }
+                UserId = userId
             };
 
-            this.recipes.Add(recipe);
+            await this.database.UserRecipes.AddAsync(recipe);
+
+            await this.database.SaveChangesAsync();
+
+            if (createRecipe.Ingredients != null)
+            {
+                foreach(var ingredient in createRecipe.Ingredients)
+                {
+                    ingredient.RecipeId = recipe.RecipeId;
+                    await this.database.UserIngredients.AddAsync(ingredient);
+                }
+            }
+
+            if (createRecipe.Steps != null)
+            {
+                foreach (var step in createRecipe.Steps)
+                {
+                    step.RecipeId = recipe.RecipeId;
+                    await this.database.UserSteps.AddAsync(step);
+                }
+            }
+
+            await this.database.SaveChangesAsync();
 
             return recipe;
         }
 
-        public async Task DeleteRecipe(string userId, string recipeId)
+        public async Task DeleteRecipe(string userId, int recipeId)
         {
-            var recipe = this.recipes.FirstOrDefault(x => x.User.UserId == userId && x.RecipeId == recipeId);
+            var recipe = await this.GetRecipe(userId, recipeId);
 
             if (recipe != null)
             {
-                this.recipes.Remove(recipe);
+                this.database.UserRecipes.Remove(recipe);
+
+                await this.database.SaveChangesAsync();
+
             }
         }
 
-        public async Task<Recipe> GetRecipe(string userId, string recipeId)
+        public async Task<Recipe> GetRecipe(string userId, int recipeId)
         {
-            var recipe = this.recipes.FirstOrDefault(x => x.User.UserId == userId && x.RecipeId == recipeId);
+            var recipe = await this.database.UserRecipes
+                .Include(x => x.Ingredients)
+                .Include(x => x.Steps)
+                .FirstOrDefaultAsync(x => x.UserId == userId && x.RecipeId == recipeId);
 
             return recipe;
         }
 
         public async Task<IList<Recipe>> GetRecipes(string userId)
         {
-            var recipes = this.recipes.Where(x => x.User.UserId == userId).ToList();
+            var recipes = await this.database.UserRecipes
+                .Include(x => x.Ingredients)
+                .Include(x => x.Steps)
+                .Where(x => x.UserId == userId).ToListAsync();
 
             return recipes;
         }
 
         public async Task<Recipe> UpdateRecipe(string userId, Recipe updateRecipe)
         {
-            var recipe = this.recipes.FirstOrDefault(x => x.User.UserId == userId && x.RecipeId == updateRecipe.RecipeId);
+            var recipe = await this.GetRecipe(userId, updateRecipe.RecipeId);
 
             if (recipe != null)
             {
@@ -76,92 +101,14 @@ namespace FeedMeApi.Repositories.Recipes
                 recipe.Servings = updateRecipe.Servings;
                 recipe.Steps = updateRecipe.Steps;
                 recipe.Title = updateRecipe.Title;
+
+                this.database.Update(recipe);
+
+                await this.database.SaveChangesAsync();
             }
 
             return recipe;
         }
 
-        private void GenerateMockData()
-        {
-            this.recipes.Add(new Recipe
-            {
-                User = new Models.Auth.User
-                {
-                    UserId = "3c809e9b-ea1a-4fd5-a35d-4c2c748c24fa"
-                },
-                RecipeId = "7a6f2dd8-83f1-453a-b356-fbded184ade9",
-                Title = "Recipe 1",
-                Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eu bibendum lacus. Proin pharetra nibh a velit varius bibendum. Praesent nec consequat orci. Nunc feugiat orci felis, quis varius mauris mollis luctus. Cras elementum lorem id suscipit consequat. Cras malesuada, leo eget pretium euismod, nibh lectus sollicitudin neque, id vehicula est ex quis quam. Aliquam ac maximus nulla.",
-                Servings = 1,
-                CookTime = "10m",
-                PrepTime = "0m",
-                Ingredients = new List<Ingredient>(),
-                Steps = new List<Step>()
-            });
-
-            this.recipes.Add(new Recipe
-            {
-                User = new Models.Auth.User
-                {
-                    UserId = "3c809e9b-ea1a-4fd5-a35d-4c2c748c24fa"
-                },
-                RecipeId = "de79647b-f6fa-49d1-95dd-fc03824f49d5",
-                Title = "Recipe 2",
-                Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eu bibendum lacus. Proin pharetra nibh a velit varius bibendum. Praesent nec consequat orci. Nunc feugiat orci felis, quis varius mauris mollis luctus. Cras elementum lorem id suscipit consequat. Cras malesuada, leo eget pretium euismod, nibh lectus sollicitudin neque, id vehicula est ex quis quam. Aliquam ac maximus nulla.",
-                Servings = 1,
-                CookTime = "10m",
-                PrepTime = "0m",
-                Ingredients = new List<Ingredient>(),
-                Steps = new List<Step>()
-            });
-
-            this.recipes.Add(new Recipe
-            {
-                User = new Models.Auth.User
-                {
-                    UserId = "3c809e9b-ea1a-4fd5-a35d-4c2c748c24fa"
-                },
-                RecipeId = "edd370d7-ff4f-482f-9c6d-a95857038dc2",
-                Title = "Recipe 3",
-                Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eu bibendum lacus. Proin pharetra nibh a velit varius bibendum. Praesent nec consequat orci. Nunc feugiat orci felis, quis varius mauris mollis luctus. Cras elementum lorem id suscipit consequat. Cras malesuada, leo eget pretium euismod, nibh lectus sollicitudin neque, id vehicula est ex quis quam. Aliquam ac maximus nulla.",
-                Servings = 1,
-                CookTime = "10m",
-                PrepTime = "0m",
-                Ingredients = new List<Ingredient>(),
-                Steps = new List<Step>()
-            });
-
-            this.recipes.Add(new Recipe
-            {
-                User = new Models.Auth.User
-                {
-                    UserId = "3c809e9b-ea1a-4fd5-a35d-4c2c748c24fa"
-                },
-                RecipeId = "85ccb0c2-bba4-422f-b0f5-3586a4444430",
-                Title = "Recipe 4",
-                Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eu bibendum lacus. Proin pharetra nibh a velit varius bibendum. Praesent nec consequat orci. Nunc feugiat orci felis, quis varius mauris mollis luctus. Cras elementum lorem id suscipit consequat. Cras malesuada, leo eget pretium euismod, nibh lectus sollicitudin neque, id vehicula est ex quis quam. Aliquam ac maximus nulla.",
-                Servings = 1,
-                CookTime = "10m",
-                PrepTime = "0m",
-                Ingredients = new List<Ingredient>(),
-                Steps = new List<Step>()
-            });
-
-            this.recipes.Add(new Recipe
-            {
-                User = new Models.Auth.User
-                {
-                    UserId = "3c809e9b-ea1a-4fd5-a35d-4c2c748c24fa"
-                },
-                RecipeId = "717d757e-6c00-443a-a219-b0f8121345a8",
-                Title = "Recipe 5",
-                Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eu bibendum lacus. Proin pharetra nibh a velit varius bibendum. Praesent nec consequat orci. Nunc feugiat orci felis, quis varius mauris mollis luctus. Cras elementum lorem id suscipit consequat. Cras malesuada, leo eget pretium euismod, nibh lectus sollicitudin neque, id vehicula est ex quis quam. Aliquam ac maximus nulla.",
-                Servings = 1,
-                CookTime = "10m",
-                PrepTime = "0m",
-                Ingredients = new List<Ingredient>(),
-                Steps = new List<Step>()
-            });
-        }
     }
 }

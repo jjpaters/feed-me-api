@@ -12,6 +12,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeedMeApi.Tests", "FeedMeAp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeedMeApi", "FeedMeApi\FeedMeApi.csproj", "{CDBA0FE6-5B89-447C-A54F-20CAE4230D46}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{F7E5CA2C-D777-468B-99D5-7CF52B62E09B}"
+	ProjectSection(SolutionItems) = preProject
+		Scripts\InitialCreate.sql = Scripts\InitialCreate.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|anycpu = Debug|anycpu
@@ -26,5 +31,8 @@ Global
 		{CDBA0FE6-5B89-447C-A54F-20CAE4230D46}.Debug|anycpu.Build.0 = Debug|Any CPU
 		{CDBA0FE6-5B89-447C-A54F-20CAE4230D46}.Release|anycpu.ActiveCfg = Release|Any CPU
 		{CDBA0FE6-5B89-447C-A54F-20CAE4230D46}.Release|anycpu.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F7E5CA2C-D777-468B-99D5-7CF52B62E09B} = {488473AD-E04A-4532-9255-0E7B90C08CCF}
 	EndGlobalSection
 EndGlobal

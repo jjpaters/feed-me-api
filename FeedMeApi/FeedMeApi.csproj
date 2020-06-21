@@ -6,11 +6,12 @@
     <AWSProjectType>Lambda</AWSProjectType>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.3.100.1" />
+    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.3.101" />
     <PackageReference Include="Amazon.Lambda.AspNetCoreServer" Version="5.1.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.4.1" />
     <PackageReference Include="AWSXRayRecorder.Handlers.AspNetCore" Version="2.7.1" />
     <PackageReference Include="AWSSDK.Extensions.CognitoAuthentication" Version="0.9.4" />
+    <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.20" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="Properties\launchSettings.json">
@@ -22,9 +23,9 @@
   <ItemGroup>
     <Folder Include="Controllers\Diagnostics\" />
     <Folder Include="Models\Recipes\" />
-    <Folder Include="Models\Auth\" />
     <Folder Include="Controllers\Recipes\" />
     <Folder Include="Repositories\" />
     <Folder Include="Repositories\Recipes\" />
+    <Folder Include="Repositories\Core\" />
   </ItemGroup>
 </Project>

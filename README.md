@@ -4,3 +4,7 @@
 # Feed Me API
 
 Backend for [Feed Me](https://feed-me.io/)
+
+
+
+docker run --restart always --name mysql5.6 -v /Users/justin/Develop/mysql_data/5.6:/var/lib/mysql -p 3306:3306 -d -e MYSQL_ROOT_PASSWORD=password mysql:5.6

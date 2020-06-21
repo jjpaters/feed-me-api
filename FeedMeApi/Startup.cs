@@ -2,9 +2,11 @@
 using System.IO;
 using System.Reflection;
 using System.Text.Json.Serialization;
+using FeedMeApi.Repositories.Core;
 using FeedMeApi.Repositories.Recipes;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -69,6 +71,9 @@ namespace FeedMeApi
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+
+            services.AddDbContext<FeedMeContext>(options =>
+            options.UseMySQL(Configuration.GetConnectionString("FeedMeContext")));
 
             services.AddTransient<IRecipeRepository, RecipeRepository>();
         }

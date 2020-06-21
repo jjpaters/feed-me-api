@@ -9,6 +9,8 @@ namespace FeedMeApi.Controllers.Diagnostics
     [Route("[controller]")]
     public class HealthController : ControllerBase
     {
+
+
         /// <summary>
         /// Check the health of the API.
         /// </summary>

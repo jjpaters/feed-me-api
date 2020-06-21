@@ -8,9 +8,9 @@ namespace FeedMeApi.Repositories.Recipes
     {
         Task<Recipe> CreateRecipe(string userId, CreateRecipe createRecipe);
 
-        Task DeleteRecipe(string userId, string recipeId);
+        Task DeleteRecipe(string userId, int recipeId);
 
-        Task<Recipe> GetRecipe(string userId, string recipeId);
+        Task<Recipe> GetRecipe(string userId, int recipeId);
 
         Task<IList<Recipe>> GetRecipes(string userId);
 
