@@ -1,9 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Amazon.AspNetCore.Identity.Cognito;
 using Amazon.Extensions.CognitoAuthentication;
 using FeedMeApi.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace FeedMeApi.Controllers.Diagnostics
 {
@@ -13,11 +15,11 @@ namespace FeedMeApi.Controllers.Diagnostics
     [Route("[controller]")]
     public class HealthController : ControllerBase
     {
-        private readonly CognitoUserManager<CognitoUser> userManager;
+        private readonly UserManager<CognitoUser> userManager;
 
         public HealthController(UserManager<CognitoUser> userManager)
         {
-            this.userManager = userManager as CognitoUserManager<CognitoUser>;
+            this.userManager = userManager;
         }
 
         /// <summary>
@@ -33,9 +35,16 @@ namespace FeedMeApi.Controllers.Diagnostics
                 Status = HealthStatuses.Pass
             };
 
-            var user = await this.userManager.GetUserAsync(this.User);
+            try
+            {
+                var user = await this.userManager.GetUserAsync(this.User);
 
-            health.Username = user?.Username;
+                health.Username = user?.Username;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"{ex.Message}");
+            }
 
             return Ok(health);
         }
