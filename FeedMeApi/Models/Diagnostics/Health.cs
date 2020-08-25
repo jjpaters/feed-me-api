@@ -24,5 +24,10 @@ namespace FeedMeApi.Models
         {
             this.Time = DateTime.UtcNow;
         }
+
+        /// <summary>
+        /// Indicates the username of the calling request.
+        /// </summary>
+        public string Username { get; set; }
     }
 }

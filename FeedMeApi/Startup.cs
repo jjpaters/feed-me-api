@@ -46,6 +46,8 @@ namespace FeedMeApi
                     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                 });
 
+            services.AddCognitoIdentity();
+
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(builder =>
@@ -73,7 +75,9 @@ namespace FeedMeApi
             });
 
             services.AddDbContext<FeedMeContext>(options =>
-            options.UseMySQL(Configuration.GetConnectionString("FeedMeContext")));
+            {
+                options.UseMySQL(Configuration.GetConnectionString("FeedMeContext"));
+            });
 
             services.AddTransient<IRecipeRepository, RecipeRepository>();
         }
@@ -90,6 +94,8 @@ namespace FeedMeApi
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseAuthentication();
+
             app.UseXRay("FeedMeApi");
 
             app.UseHttpsRedirection();
@@ -103,8 +109,6 @@ namespace FeedMeApi
             });
 
             app.UseRouting();
-
-            app.UseAuthorization();
 
             app.UseCors();
 
