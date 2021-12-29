@@ -32,7 +32,7 @@ jobs:
       - run:
           name: Install Build Dependencies
           command: |
-            apk add -y zip
+            apt-get update && apt-get -y install zip
             export PATH="$PATH:/root/.dotnet/tools"
             dotnet tool install -g Amazon.Lambda.Tools
       - run:
@@ -69,7 +69,6 @@ jobs:
             apk update
             apk add -y curl
             apk add -y bash
-            apk add -y zip
             apk update
             apk upgrade
       - run:
