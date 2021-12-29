@@ -14,10 +14,10 @@ workflows:
           requires:
             - build
             - test
-          #filters:
-          #  branches:
-          #    only:
-          #      - main
+          filters:
+            branches:
+              only:
+                - main
 
 #############################################################
 # Define jobs
