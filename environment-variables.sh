@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Global Variables
-FILEPATH				=	"./dist"
+FILEPATH="./dist"
 
 # AWS Variables
-AWS_REGION				=	${AWS_REGION}
-AWS_USERPOOL_CLIENT_ID	=	${AWS_USERPOOL_CLIENT_ID}
-AWS_USERPOOL_ID			=	${AWS_USERPOOL_ID}
+AWS_REGION=${AWS_REGION}
+AWS_USERPOOL_CLIENT_ID=${AWS_USERPOOL_CLIENT_ID}
+AWS_USERPOOL_ID=${AWS_USERPOOL_ID}
 
 echo "Starting to replace the AWS environment variables."
 
