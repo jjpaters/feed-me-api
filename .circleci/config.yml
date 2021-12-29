@@ -30,6 +30,11 @@ jobs:
     steps:
       - checkout
       - run:
+          name: "Replace Environment Variables"
+          command: |
+            chmod +x environment-variables.sh
+            ./environment-variables.sh
+      - run:
           name: Install Build Dependencies and Build
           command: |
             apt-get update && apt-get -y install zip
@@ -80,11 +85,6 @@ jobs:
             aws configure set region us-east-1
             aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
             aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-      - run:
-          name: "Replace Environment Variables"
-          command: |
-            chmod +x environment-variables.sh
-            ./environment-variables.sh
       - run:
           name: Deploy AWS Lambda
           command: aws lambda update-function-code --function-name feed-me-lambda --zip-file "fileb://package/lambda.zip"

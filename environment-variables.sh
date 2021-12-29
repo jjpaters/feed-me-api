@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Global Variables
-FILEPATH="./package/appsettings.json"
+FILEPATH="./FeedMe.Api/appsettings.json"
 
 # AWS Variables
 AWS_REGION=${AWS_REGION}
