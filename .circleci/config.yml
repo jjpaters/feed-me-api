@@ -37,7 +37,10 @@ jobs:
             dotnet tool install -g Amazon.Lambda.Tools
       - run:
           name: Build Solution
-          command: dotnet lambda package -pl ./FeedMe.Api -o ./package/lambda.zip -c Release -f netcoreapp3.1
+          command: |
+            ls
+            pwd
+            dotnet lambda package -pl ./FeedMe.Api -o ./package/lambda.zip -c Release -f netcoreapp3.1
       - persist_to_workspace:
           root: .
           paths:
