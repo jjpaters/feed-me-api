@@ -10,6 +10,7 @@ workflows:
       - build
       - test
       - deploy:
+          context: AWS
           requires:
             - build
             - test
@@ -30,12 +31,21 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Build solution"
-          command: dotnet build --configuration Release --output dist
+          name: "Replace Environment Variables"
+          command: |
+            chmod +x environment-variables.sh
+            ./environment-variables.sh
+      - run:
+          name: Install Build Dependencies and Build
+          command: |
+            apt-get update && apt-get -y install zip
+            export PATH="$PATH:/root/.dotnet/tools"
+            dotnet tool install -g Amazon.Lambda.Tools
+            dotnet lambda package -pl ./FeedMe.Api -o ./package/lambda.zip -c Release -f netcoreapp3.1
       - persist_to_workspace:
           root: .
           paths:
-            - dist
+            - package
 
   test:
     working_directory: ~/app
@@ -44,10 +54,10 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Install project dependencies"
+          name: Install Project Dependencies
           command: dotnet restore
       - run:
-          name: "Run unit tests"
+          name: Run Unit Tests
           command: dotnet test
 
   deploy:
@@ -63,7 +73,6 @@ jobs:
             apk update
             apk add -y curl
             apk add -y bash
-            apk add -y zip
             apk update
             apk upgrade
       - run:
@@ -78,11 +87,5 @@ jobs:
             aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
             aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
       - run:
-          name: "Create zip"
-          command: |
-            cd ./dist/
-            zip -r function.zip .
-            cp function.zip ../function.zip
-      - run:
           name: Deploy AWS Lambda
-          command: aws lambda update-function-code --function-name feed-me-lambda --zip-file fileb://dist/function.zip
+          command: aws lambda update-function-code --function-name feed-me-lambda --zip-file "fileb://package/lambda.zip"
