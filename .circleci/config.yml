@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  shellcheck: circleci/shellcheck@2.2.4
+
 #############################################################
 # Define workflows
 #############################################################
@@ -9,14 +12,16 @@ workflows:
     jobs:
       - build
       - test
+      - shellcheck/check
       - deploy:
           requires:
             - build
             - test
-          filters:
-            branches:
-              only:
-                - main
+            - shellcheck/check
+          #filters:
+          #  branches:
+          #    only:
+          #      - main
 
 #############################################################
 # Define jobs
@@ -30,7 +35,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Build solution"
+          name: Build Solution
           command: dotnet build --configuration Release --output dist
       - persist_to_workspace:
           root: .
@@ -44,10 +49,10 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Install project dependencies"
+          name: Install Project Dependencies
           command: dotnet restore
       - run:
-          name: "Run unit tests"
+          name: Run Unit Tests
           command: dotnet test
 
   deploy:
@@ -78,11 +83,16 @@ jobs:
             aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
             aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
       - run:
-          name: "Create zip"
+          name: "Replace Environment Variables"
+          command: |
+            chmod +x environment-variables.sh
+            ./environment-variables.sh
+      - run:
+          name: Create Zip
           command: |
             cd ./dist/
             zip -r function.zip .
             cp function.zip ../function.zip
-      - run:
-          name: Deploy AWS Lambda
-          command: aws lambda update-function-code --function-name feed-me-lambda --zip-file fileb://dist/function.zip
+      #- run:
+      #    name: Deploy AWS Lambda
+      #    command: aws lambda update-function-code --function-name feed-me-lambda --zip-file fileb://dist/function.zip
