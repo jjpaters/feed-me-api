@@ -26,13 +26,12 @@ jobs:
   build:
     working_directory: ~/app
     docker:
-      - image: mcr.microsoft.com/dotnet/core/sdk:3.1
+      - image: public.ecr.aws/lambda/dotnet:core3.1
     steps:
       - checkout
       - run:
           name: Build Solution
           command: |
-            dotnet tool install -g Amazon.Lambda.Tools
             dotnet lambda package -pl ./FeedMe.Api -o ./package/lambda.zip -c Release -f netcoreapp3.1
       - persist_to_workspace:
           root: .
