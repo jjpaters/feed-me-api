@@ -39,7 +39,7 @@ jobs:
           name: Build Solution
           command: |
             ls
-            pwd
+            dotnet lambda package --help
             dotnet lambda package -pl ./FeedMe.Api -o ./package/lambda.zip -c Release -f netcoreapp3.1
       - persist_to_workspace:
           root: .
