@@ -9,7 +9,6 @@ workflows:
     jobs:
       - build
       - test
-      - shellcheck/check
       - deploy:
           requires:
             - build
