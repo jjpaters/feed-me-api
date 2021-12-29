@@ -31,11 +31,11 @@ jobs:
       - checkout
       - run:
           name: Build Solution
-          command: dotnet build --configuration Release --output dist
+          command: dotnet lambda package -pl ./FeedMe.Api -o ./package/lambda.zip -c Release -f netcoreapp3.1
       - persist_to_workspace:
           root: .
           paths:
-            - dist
+            - package
 
   test:
     working_directory: ~/app
@@ -83,11 +83,5 @@ jobs:
             chmod +x environment-variables.sh
             ./environment-variables.sh
       - run:
-          name: Create Zip
-          command: |
-            cd ./dist/
-            zip -r function.zip .
-            cp function.zip ../function.zip
-      #- run:
-      #    name: Deploy AWS Lambda
-      #    command: aws lambda update-function-code --function-name feed-me-lambda --zip-file fileb://dist/function.zip
+          name: Deploy AWS Lambda
+          command: aws lambda update-function-code --function-name feed-me-lambda --zip-file "fileb://package/lambda.zip"
