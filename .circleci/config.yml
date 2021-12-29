@@ -30,16 +30,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install Build Dependencies
+          name: Install Build Dependencies and Build
           command: |
             apt-get update && apt-get -y install zip
             export PATH="$PATH:/root/.dotnet/tools"
             dotnet tool install -g Amazon.Lambda.Tools
-      - run:
-          name: Build Solution
-          command: |
-            ls
-            dotnet lambda package --help
             dotnet lambda package -pl ./FeedMe.Api -o ./package/lambda.zip -c Release -f netcoreapp3.1
       - persist_to_workspace:
           root: .
