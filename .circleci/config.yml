@@ -59,9 +59,9 @@ jobs:
       - run:
           name: Run Unit Tests
           command: |
-            dotnet tool install coveralls.net --version 2.0.0 --tool-path tools
+            dotnet tool install -g coveralls.net
             dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
-            .\tools\csmacnz.Coveralls --opencover -i FeedMe.Api.Tests/coverage.opencover.xml --useRelativePaths
+            csmacnz.Coveralls --opencover -i FeedMe.Api.Tests/coverage.opencover.xml --useRelativePaths
 
   deploy:
     docker:
