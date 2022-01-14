@@ -1,8 +1,5 @@
 version: 2.1
 
-orbs: 
-  coveralls: coveralls/coveralls@1.0.6
-
 #############################################################
 # Define workflows
 #############################################################
@@ -57,18 +54,14 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install Test Dependencies
-          command: |
-            ls
-            apt-get update && apt-get -y install nodejs
-            export PATH="$PATH:/root/local/nodejs/bin"
-      - run:
           name: Restore Project Dependencies
           command: dotnet restore
       - run:
           name: Run Unit Tests
-          command: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
-      - coveralls/upload
+          command: |
+            dotnet tool install coveralls.net --version 2.0.0 --tool-path tools
+            dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+            .\tools\csmacnz.Coveralls --opencover -i FeedMe.Api.Tests/coverage.opencover.xml --useRelativePaths
 
   deploy:
     docker:
