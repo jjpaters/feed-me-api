@@ -57,13 +57,16 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install Test Dependencies
+          command: |
+            apt-get update && apt-get -y install nodejs
+            export PATH="$PATH:/usr/local/nodejs/bin"
+      - run:
           name: Restore Project Dependencies
           command: dotnet restore
       - run:
           name: Run Unit Tests
-          command: |
-            apt-get update && apt-get -y install nodejs
-            dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+          command: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
       - coveralls/upload
 
   deploy:
