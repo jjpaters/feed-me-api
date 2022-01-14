@@ -59,8 +59,9 @@ jobs:
       - run:
           name: Install Test Dependencies
           command: |
+            ls
             apt-get update && apt-get -y install nodejs
-            export PATH="$PATH:/usr/local/nodejs/bin"
+            export PATH="$PATH:/root/local/nodejs/bin"
       - run:
           name: Restore Project Dependencies
           command: dotnet restore
