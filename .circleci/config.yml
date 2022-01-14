@@ -39,7 +39,7 @@ jobs:
             chmod +x environment-variables.sh
             ./environment-variables.sh
       - run:
-          name: Install Build Dependencies and Build
+          name: Install Build Dependencies and Package Build
           command: |
             apt-get update && apt-get -y install zip
             export PATH="$PATH:/root/.dotnet/tools"
@@ -57,7 +57,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install Project Dependencies
+          name: Install Test Dependencies
+          command: |
+            apt-get update && apt-get -y install nodejs
+      - run:
+          name: Restore Project Dependencies
           command: dotnet restore
       - run:
           name: Run Unit Tests
