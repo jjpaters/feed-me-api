@@ -1,4 +1,5 @@
-﻿using FeedMe.Api.Models.Recipes;
+﻿using FeedMe.Api.Exceptions;
+using FeedMe.Api.Models.Recipes;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,27 +9,27 @@ namespace FeedMe.Api.Repositories.Recipes
     {
         public Task<Recipe> CreateRecipe(string userId, CreateRecipe createRecipe)
         {
-            throw new System.NotImplementedException();
+            throw new UnauthorizedRecipeAccessException();
         }
 
         public Task DeleteRecipe(string userId, long recipeId)
         {
-            throw new System.NotImplementedException();
+            throw new UnauthorizedRecipeAccessException();
         }
 
         public Task<Recipe> GetRecipe(string userId, long recipeId)
         {
-            throw new System.NotImplementedException();
+            throw new UnauthorizedRecipeAccessException();
         }
 
         public Task<IList<Recipe>> GetRecipes(string userId)
         {
-            throw new System.NotImplementedException();
+            throw new UnauthorizedRecipeAccessException();
         }
 
         public Task<Recipe> UpdateRecipe(string userId, Recipe updateRecipe)
         {
-            throw new System.NotImplementedException();
+            throw new UnauthorizedRecipeAccessException();
         }
     }
 }
