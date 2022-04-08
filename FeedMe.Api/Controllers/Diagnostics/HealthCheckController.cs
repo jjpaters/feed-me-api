@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace FeedMe.Api.Controllers.Diagnostics
 {
-    [AllowAnonymous]
     [Route("[controller]")]
     [ApiController]
     public class HealthCheckController : ControllerBase
