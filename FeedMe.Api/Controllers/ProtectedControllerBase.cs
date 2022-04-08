@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace FeedMe.Api.Controllers
 {
@@ -6,7 +7,10 @@ namespace FeedMe.Api.Controllers
     {
         public string UserIdentity
         {
-            get { return User.Identity.Name; }
+            get 
+            {
+                return this.User.FindFirst(ClaimTypes.NameIdentifier).Value.Split("|")[1];
+            }
         }
     }
 }
