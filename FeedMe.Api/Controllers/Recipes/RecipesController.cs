@@ -1,6 +1,7 @@
 ﻿using FeedMe.Api.Exceptions;
 using FeedMe.Api.Models.Recipes;
 using FeedMe.Api.Repositories.Recipes;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -8,9 +9,10 @@ using System.Threading.Tasks;
 
 namespace FeedMe.Api.Controllers.Recipes
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class RecipesController : ControllerBase
+    public class RecipesController : ProtectedControllerBase
     {
         private readonly IRecipeRepository recipeRepository;
 
@@ -22,11 +24,11 @@ namespace FeedMe.Api.Controllers.Recipes
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<Recipe>> CreateRecipe(string userId, CreateRecipe createRecipe)
+        public async Task<ActionResult<Recipe>> CreateRecipe(CreateRecipe createRecipe)
         {
             try
             {
-                var responseData = await this.recipeRepository.CreateRecipe(userId, createRecipe);
+                var responseData = await this.recipeRepository.CreateRecipe(this.UserIdentity, createRecipe);
 
                 return Created("", responseData);
             }
@@ -39,11 +41,11 @@ namespace FeedMe.Api.Controllers.Recipes
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult> DeleteRecipe(string userId, long recipeId)
+        public async Task<ActionResult> DeleteRecipe(long recipeId)
         {
             try
             {
-                await this.recipeRepository.DeleteRecipe(userId, recipeId);
+                await this.recipeRepository.DeleteRecipe(this.UserIdentity, recipeId);
 
                 return NoContent();
             }
@@ -60,9 +62,7 @@ namespace FeedMe.Api.Controllers.Recipes
         {
             try
             {
-                var userId = ""; // TODO: resolve User ID
-
-                var responseData = await this.recipeRepository.GetRecipe(userId, recipeId);
+                var responseData = await this.recipeRepository.GetRecipe(this.UserIdentity, recipeId);
 
                 return Ok(responseData);
             }
@@ -79,9 +79,7 @@ namespace FeedMe.Api.Controllers.Recipes
         {
             try
             {
-                var userId = ""; // TODO: resolve User ID
-
-                var responseData = await this.recipeRepository.GetRecipes(userId);
+                var responseData = await this.recipeRepository.GetRecipes(this.UserIdentity);
 
                 return Ok(responseData);
             }
@@ -98,9 +96,7 @@ namespace FeedMe.Api.Controllers.Recipes
         {
             try
             {
-                var userId = ""; // TODO: resolve User ID
-
-                var responseData = await this.recipeRepository.UpdateRecipe(userId, updateRecipe);
+                var responseData = await this.recipeRepository.UpdateRecipe(this.UserIdentity, updateRecipe);
 
                 return Ok(responseData);
             }

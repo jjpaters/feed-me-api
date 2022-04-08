@@ -18,6 +18,7 @@ workflows:
             branches:
               only:
                 - main
+                - user-recipe-repositories
 
 #############################################################
 # Define jobs
