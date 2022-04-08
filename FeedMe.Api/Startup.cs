@@ -27,6 +27,14 @@ namespace FeedMe.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(policy =>
+                {
+                    policy.WithOrigins("http://localhost:4200/", "https://feed-me.io/");
+                });
+            });
+
             services.AddDependencies();
 
             services.AddControllers().AddJsonOptions(c =>
@@ -74,13 +82,10 @@ namespace FeedMe.Api
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
+            app.UseCors();
             app.UseAuthentication();
-
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
