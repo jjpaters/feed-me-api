@@ -41,7 +41,7 @@ namespace FeedMe.Api.Controllers.Recipes
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult> DeleteRecipe(long recipeId)
+        public async Task<ActionResult> DeleteRecipe(string recipeId)
         {
             try
             {
@@ -58,7 +58,7 @@ namespace FeedMe.Api.Controllers.Recipes
         [HttpGet("{recipeId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<Recipe>> GetRecipe(long recipeId)
+        public async Task<ActionResult<Recipe>> GetRecipe(string recipeId)
         {
             try
             {

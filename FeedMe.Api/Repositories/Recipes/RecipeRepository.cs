@@ -17,12 +17,12 @@ namespace FeedMe.Api.Repositories.Recipes
             return recipe;
         }
 
-        public async Task DeleteRecipe(string userId, long recipeId)
+        public async Task DeleteRecipe(string userId, string recipeId)
         {
             throw new UnauthorizedRecipeAccessException();
         }
 
-        public async Task<Recipe> GetRecipe(string userId, long recipeId)
+        public async Task<Recipe> GetRecipe(string userId, string recipeId)
         {
             var recipe = new Recipe
             {
@@ -35,7 +35,15 @@ namespace FeedMe.Api.Repositories.Recipes
 
         public async Task<IList<Recipe>> GetRecipes(string userId)
         {
-            throw new UnauthorizedRecipeAccessException();
+            var recipes = new List<Recipe>
+            {
+                new Recipe
+                {
+                    UserId = userId,
+                }
+            };
+
+            return recipes;
         }
 
         public async Task<Recipe> UpdateRecipe(string userId, Recipe updateRecipe)
