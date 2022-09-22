@@ -30,7 +30,7 @@ namespace FeedMe.Api
             {
                 options.AddDefaultPolicy(policy =>
                 {
-                    policy.WithOrigins("http://localhost:4200/", "https://feed-me.io/");
+                    policy.WithOrigins(Configuration["AllowOrigins"]);
                 });
             });
 

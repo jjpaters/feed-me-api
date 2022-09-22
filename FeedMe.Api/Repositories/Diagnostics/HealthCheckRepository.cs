@@ -1,4 +1,5 @@
-﻿using FeedMe.Api.Models.Diagnostics;
+﻿using Amazon.DynamoDBv2.DataModel;
+using FeedMe.Api.Models.Diagnostics;
 using System;
 using System.Threading.Tasks;
 
