@@ -61,6 +61,10 @@ jobs:
           command: |
             export PATH="$PATH:/root/.dotnet/tools"
             dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+            dotnet tool install trx2junit --tool-path ~/tools
+            ~/tools/trx2junit --output junit-test-results */TestResults/*.trx
+      - store_test_results:
+          path: junit-test-results
 
   deploy:
     docker:
