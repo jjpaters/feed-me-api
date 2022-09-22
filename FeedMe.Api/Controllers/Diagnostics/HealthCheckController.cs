@@ -1,12 +1,11 @@
-﻿using FeedMe.Api.Models.Diagnostics;
+﻿using System.Threading.Tasks;
+using FeedMe.Api.Models.Diagnostics;
 using FeedMe.Api.Repositories.Diagnostics;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace FeedMe.Api.Controllers.Diagnostics
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class HealthCheckController : ControllerBase
     {
@@ -24,6 +23,6 @@ namespace FeedMe.Api.Controllers.Diagnostics
             var healthCheck = await this.healthCheckRepository.GetHealthCheck();
 
             return Ok(healthCheck);
-        }        
+        }
     }
 }

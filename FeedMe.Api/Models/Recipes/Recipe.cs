@@ -6,6 +6,6 @@ namespace FeedMe.Api.Models.Recipes
     {
         public string UserId { get; set; }
 
-        public long RecipeId { get; set; }
+        public string RecipeId { get; set; }
     }
 }

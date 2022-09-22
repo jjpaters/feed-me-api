@@ -1,16 +1,18 @@
-﻿using FeedMe.Api.Exceptions;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using FeedMe.Api.Exceptions;
 using FeedMe.Api.Models.Recipes;
 using FeedMe.Api.Repositories.Recipes;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace FeedMe.Api.Controllers.Recipes
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
-    public class RecipesController : ControllerBase
+    [Authorize]
+    public class RecipesController : AuthorizedControllerBase
     {
         private readonly IRecipeRepository recipeRepository;
 
@@ -22,54 +24,31 @@ namespace FeedMe.Api.Controllers.Recipes
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<Recipe>> CreateRecipe(string userId, CreateRecipe createRecipe)
+        public async Task<ActionResult<Recipe>> CreateRecipe(CreateRecipe createRecipe)
         {
-            try
-            {
-                var responseData = await this.recipeRepository.CreateRecipe(userId, createRecipe);
+            var responseData = await this.recipeRepository.CreateRecipe(this.Username, createRecipe);
 
-                return Created("", responseData);
-            }
-            catch (UnauthorizedRecipeAccessException)
-            {
-                return Unauthorized();
-            }            
+            return Created("", responseData);
         }
 
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult> DeleteRecipe(string userId, long recipeId)
+        public async Task<ActionResult> DeleteRecipe(string recipeId)
         {
-            try
-            {
-                await this.recipeRepository.DeleteRecipe(userId, recipeId);
+            await this.recipeRepository.DeleteRecipe(this.Username, recipeId);
 
-                return NoContent();
-            }
-            catch (UnauthorizedRecipeAccessException)
-            {
-                return Unauthorized();
-            }            
+            return NoContent();
         }
 
         [HttpGet("{recipeId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<Recipe>> GetRecipe(long recipeId)
+        public async Task<ActionResult<Recipe>> GetRecipe(string recipeId)
         {
-            try
-            {
-                var userId = ""; // TODO: resolve User ID
+            var responseData = await this.recipeRepository.GetRecipe(this.Username, recipeId);
 
-                var responseData = await this.recipeRepository.GetRecipe(userId, recipeId);
-
-                return Ok(responseData);
-            }
-            catch (UnauthorizedRecipeAccessException)
-            {
-                return Unauthorized();
-            }            
+            return Ok(responseData);
         }
 
         [HttpGet]
@@ -77,18 +56,9 @@ namespace FeedMe.Api.Controllers.Recipes
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<IList<Recipe>>> GetRecipes()
         {
-            try
-            {
-                var userId = ""; // TODO: resolve User ID
+            var responseData = await this.recipeRepository.GetRecipes(this.Username);
 
-                var responseData = await this.recipeRepository.GetRecipes(userId);
-
-                return Ok(responseData);
-            }
-            catch (UnauthorizedRecipeAccessException)
-            {
-                return Unauthorized();
-            }            
+            return Ok(responseData);
         }
 
         [HttpPut]
@@ -96,18 +66,9 @@ namespace FeedMe.Api.Controllers.Recipes
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<Recipe>> UpdateRecipe(Recipe updateRecipe)
         {
-            try
-            {
-                var userId = ""; // TODO: resolve User ID
+            var responseData = await this.recipeRepository.UpdateRecipe(this.Username, updateRecipe);
 
-                var responseData = await this.recipeRepository.UpdateRecipe(userId, updateRecipe);
-
-                return Ok(responseData);
-            }
-            catch (UnauthorizedRecipeAccessException)
-            {
-                return Unauthorized();
-            }            
+            return Ok(responseData);
         }
     }
 }

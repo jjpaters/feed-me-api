@@ -6,7 +6,7 @@ namespace FeedMe.Api.Models.Recipes
     {
         public string Title { get; set; }
 
-        public long Servings { get; set; }
+        public int Servings { get; set; }
 
         public string PrepTime { get; set; }
 

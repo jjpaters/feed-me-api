@@ -1,35 +1,53 @@
-﻿using FeedMe.Api.Exceptions;
-using FeedMe.Api.Models.Recipes;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using FeedMe.Api.Models.Recipes;
 
 namespace FeedMe.Api.Repositories.Recipes
 {
     public class RecipeRepository : IRecipeRepository
     {
-        public Task<Recipe> CreateRecipe(string userId, CreateRecipe createRecipe)
+        public async Task<Recipe> CreateRecipe(string userId, CreateRecipe createRecipe)
         {
-            throw new UnauthorizedRecipeAccessException();
+            var recipe = createRecipe as Recipe;
+            recipe.UserId = userId;
+            recipe.RecipeId = "123";
+            return recipe;
         }
 
-        public Task DeleteRecipe(string userId, long recipeId)
+        public async Task DeleteRecipe(string userId, string recipeId)
         {
-            throw new UnauthorizedRecipeAccessException();
+            
         }
 
-        public Task<Recipe> GetRecipe(string userId, long recipeId)
+        public async Task<Recipe> GetRecipe(string userId, string recipeId)
         {
-            throw new UnauthorizedRecipeAccessException();
+            var recipe = new Recipe
+            {
+                UserId = userId,
+                RecipeId = recipeId
+            };
+
+            return recipe;
         }
 
-        public Task<IList<Recipe>> GetRecipes(string userId)
+        public async Task<IList<Recipe>> GetRecipes(string userId)
         {
-            throw new UnauthorizedRecipeAccessException();
+            var recipes = new List<Recipe>
+            {
+                new Recipe
+                {
+                    Title = "Mac & Cheese",
+                    UserId = userId
+                }
+            };
+
+            return recipes;
         }
 
-        public Task<Recipe> UpdateRecipe(string userId, Recipe updateRecipe)
+        public async Task<Recipe> UpdateRecipe(string userId, Recipe updateRecipe)
         {
-            throw new UnauthorizedRecipeAccessException();
+            updateRecipe.UserId = userId;
+            return updateRecipe;
         }
     }
 }

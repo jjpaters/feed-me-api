@@ -11,7 +11,7 @@ namespace FeedMe.Api.Repositories.Diagnostics
             var healthCheck = new HealthCheck
             {
                 Time = DateTime.UtcNow
-        };
+            };
 
             return healthCheck;
         }

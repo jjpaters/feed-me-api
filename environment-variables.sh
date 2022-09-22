@@ -3,11 +3,12 @@
 # Global Variables
 FILEPATH="./FeedMe.Api/appsettings.json"
 
-# AWS Variables
-AWS_REGION=${AWS_REGION}
-AWS_USERPOOL_CLIENT_ID=${AWS_USERPOOL_CLIENT_ID}
-AWS_USERPOOL_ID=${AWS_USERPOOL_ID}
+# Env Variables
+AUTH_AUTHORITY=${AUTH_AUTHORITY}
+AUTH_AUDIENCE=${AUTH_AUDIENCE}
 
 echo "Starting to replace the AWS environment variables."
 
-sed -i -e "s,\#{AWS_REGION}\#,"AWS_REGION",g" -e "s,\#{AWS_USERPOOL_CLIENT_ID}\#,"AWS_USERPOOL_CLIENT_ID",g" -e "s,\#{AWS_USERPOOL_ID}\#,"AWS_USERPOOL_ID",g" $FILEPATH
+sed -i -e "s,\#{AUTH_AUTHORITY}\#,"AUTH_AUTHORITY",g"\
+    -e "s,\#{AUTH_AUDIENCE}\#,"AUTH_AUDIENCE",g"\
+    $FILEPATH
