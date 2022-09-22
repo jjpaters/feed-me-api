@@ -8,17 +8,10 @@ namespace FeedMe.Api.Repositories.Recipes
     {
         public async Task<Recipe> CreateRecipe(string userId, CreateRecipe createRecipe)
         {
-<<<<<<< HEAD
             var recipe = createRecipe as Recipe;
             recipe.UserId = userId;
             recipe.RecipeId = "123";
-=======
-            var recipe = new Recipe
-            {
-                UserId = userId
-            };
 
->>>>>>> 187ac24890dc4eef43f04f37cf4f4ad2e9fb68e4
             return recipe;
         }
 
@@ -44,12 +37,8 @@ namespace FeedMe.Api.Repositories.Recipes
             {
                 new Recipe
                 {
-<<<<<<< HEAD
                     Title = "Mac & Cheese",
                     UserId = userId
-=======
-                    UserId = userId,
->>>>>>> 187ac24890dc4eef43f04f37cf4f4ad2e9fb68e4
                 }
             };
 

@@ -1,10 +1,6 @@
 {
   "resource": "/{proxy+}",
-<<<<<<< HEAD
   "path": "/HealthCheck",
-=======
-  "path": "HealthCheck",
->>>>>>> 187ac24890dc4eef43f04f37cf4f4ad2e9fb68e4
   "httpMethod": "GET",
   "headers": null,
   "queryStringParameters": null,
