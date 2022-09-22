@@ -1,4 +1,5 @@
-﻿using FeedMe.Api.Models.Diagnostics;
+﻿using Amazon.DynamoDBv2.DataModel;
+using FeedMe.Api.Models.Diagnostics;
 using System;
 using System.Threading.Tasks;
 
@@ -11,7 +12,7 @@ namespace FeedMe.Api.Repositories.Diagnostics
             var healthCheck = new HealthCheck
             {
                 Time = DateTime.UtcNow
-        };
+            };
 
             return healthCheck;
         }

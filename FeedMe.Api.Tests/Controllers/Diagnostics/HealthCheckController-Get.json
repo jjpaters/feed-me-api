@@ -1,11 +1,11 @@
 {
   "resource": "/{proxy+}",
-  "path": "/api/HealthCheck",
+  "path": "/HealthCheck",
   "httpMethod": "GET",
   "headers": null,
   "queryStringParameters": null,
   "pathParameters": {
-    "proxy": "api/HealthCheck"
+    "proxy": "HealthCheck"
   },
   "stageVariables": null,
   "requestContext": {

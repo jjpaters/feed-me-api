@@ -1,34 +1,83 @@
-﻿using FeedMe.Api.Models.Recipes;
+﻿using Amazon.DynamoDBv2.DataModel;
+using Amazon.DynamoDBv2.DocumentModel;
+using FeedMe.Api.Exceptions;
+using FeedMe.Api.Models.Recipes;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace FeedMe.Api.Repositories.Recipes
 {
     public class RecipeRepository : IRecipeRepository
     {
-        public Task<Recipe> CreateRecipe(string userId, CreateRecipe createRecipe)
+        private readonly IDynamoDBContext dbContext;
+
+        public RecipeRepository(IDynamoDBContext dbContext)
         {
-            throw new System.NotImplementedException();
+            this.dbContext = dbContext;
         }
 
-        public Task DeleteRecipe(string userId, long recipeId)
+        public async Task<Recipe> CreateRecipe(string userId, CreateRecipe createRecipe)
         {
-            throw new System.NotImplementedException();
+            var recipe = new Recipe(createRecipe)
+            {
+                UserId = userId,
+                RecipeId = Guid.NewGuid().ToString()
+            };
+
+            await this.dbContext.SaveAsync(recipe);
+
+            return recipe;
         }
 
-        public Task<Recipe> GetRecipe(string userId, long recipeId)
+        public async Task DeleteRecipe(Recipe recipe)
         {
-            throw new System.NotImplementedException();
+            await this.dbContext.DeleteAsync(recipe);
         }
 
-        public Task<IList<Recipe>> GetRecipes(string userId)
+        public async Task<Recipe> GetRecipe(string userId, string recipeId)
         {
-            throw new System.NotImplementedException();
+            var scanConditions = new List<ScanCondition>
+            {
+                new ScanCondition("UserId", ScanOperator.Equal, userId),
+                new ScanCondition("RecipeId", ScanOperator.Equal, recipeId)
+            };
+
+            var recipes = await this.dbContext.ScanAsync<Recipe>(scanConditions).GetRemainingAsync();
+
+            return recipes?.FirstOrDefault();
         }
 
-        public Task<Recipe> UpdateRecipe(string userId, Recipe updateRecipe)
+        public async Task<IList<Recipe>> GetRecipes(string userId, string category = null)
         {
-            throw new System.NotImplementedException();
+            var scanConditions = new List<ScanCondition>
+            {
+                new ScanCondition("UserId", ScanOperator.Equal, userId)
+            };
+
+            if (!string.IsNullOrEmpty(category))
+            {
+                scanConditions.Add(new ScanCondition("Category", ScanOperator.Equal, category));
+            }
+
+            var recipes = await this.dbContext.ScanAsync<Recipe>(scanConditions).GetRemainingAsync();
+
+            return recipes;
+        }
+
+        public async Task<Recipe> UpdateRecipe(string userId, Recipe updateRecipe)
+        {
+            var recipe = await this.GetRecipe(updateRecipe.UserId, updateRecipe.RecipeId);
+
+            if (recipe == null || userId != updateRecipe.UserId)
+            {
+                throw new UnauthorizedRecipeAccessException();
+            }
+
+            await this.dbContext.SaveAsync(updateRecipe);
+
+            return updateRecipe;
         }
     }
 }
