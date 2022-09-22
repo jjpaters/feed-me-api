@@ -60,11 +60,7 @@ jobs:
           name: Run Unit Tests
           command: |
             export PATH="$PATH:/root/.dotnet/tools"
-            dotnet tool install trx2junit
-            dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover            
-            trx2junit --output junit-test-results */TestResults/*.trx
-      - store_test_results:
-          path: junit-test-results
+            dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
 
   deploy:
     docker:
