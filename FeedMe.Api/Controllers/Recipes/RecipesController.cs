@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using FeedMe.Api.Exceptions;
-using FeedMe.Api.Models.Recipes;
+﻿using FeedMe.Api.Models.Recipes;
 using FeedMe.Api.Repositories.Recipes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace FeedMe.Api.Controllers.Recipes
 {
@@ -28,7 +27,7 @@ namespace FeedMe.Api.Controllers.Recipes
         {
             var responseData = await this.recipeRepository.CreateRecipe(this.Username, createRecipe);
 
-            return Created("", responseData);
+            return Created($"/recipes/{responseData.RecipeId}", responseData);
         }
 
         [HttpDelete]
@@ -36,7 +35,9 @@ namespace FeedMe.Api.Controllers.Recipes
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult> DeleteRecipe(string recipeId)
         {
-            await this.recipeRepository.DeleteRecipe(this.Username, recipeId);
+            var recipe = await this.recipeRepository.GetRecipe(this.Username, recipeId);
+
+            await this.recipeRepository.DeleteRecipe(recipe);
 
             return NoContent();
         }
@@ -47,6 +48,11 @@ namespace FeedMe.Api.Controllers.Recipes
         public async Task<ActionResult<Recipe>> GetRecipe(string recipeId)
         {
             var responseData = await this.recipeRepository.GetRecipe(this.Username, recipeId);
+
+            if (responseData == null)
+            {
+                return NotFound();
+            }
 
             return Ok(responseData);
         }

@@ -17,10 +17,9 @@ namespace FeedMe.Api.Repositories.Recipes
         /// <summary>
         /// Delete a recipe for a given User.
         /// </summary>
-        /// <param name="userId">Identifier of the user</param>
-        /// <param name="recipeId">Identifier of the recipe</param>
+        /// <param name="recipe">Recipe to delete</param>
         /// <returns></returns>
-        Task DeleteRecipe(string userId, string recipeId);
+        Task DeleteRecipe(Recipe recipe);
 
         /// <summary>
         /// Get a specific Recipe for a given User.
@@ -34,8 +33,9 @@ namespace FeedMe.Api.Repositories.Recipes
         /// Get all Recipes for a given User.
         /// </summary>
         /// <param name="userId">Identifier of the user</param>
+        /// <param name="category">Optional category to filter the recipes</param>
         /// <returns>Associated recipes</returns>
-        Task<IList<Recipe>> GetRecipes(string userId);
+        Task<IList<Recipe>> GetRecipes(string userId, string category = null);
 
         /// <summary>
         /// Update a Recipe for a given User.

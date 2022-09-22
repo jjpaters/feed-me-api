@@ -12,6 +12,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Amazon.Lambda.AspNetCoreServer" Version="7.2.0" />
+    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.5.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.28" />
   </ItemGroup>
@@ -21,8 +22,5 @@
     <None Remove="Amazon.Extensions.CognitoAuthentication" />
     <None Remove="AWSSDK.CognitoIdentityProvider" />
     <None Remove="Microsoft.AspNetCore.Authentication.JwtBearer" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controllers\Recipes\" />
   </ItemGroup>
 </Project>

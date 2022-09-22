@@ -6,11 +6,12 @@ FILEPATH="./FeedMe.Api/appsettings.json"
 # Env Variables
 AUTH_AUTHORITY=${AUTH_AUTHORITY}
 AUTH_AUDIENCE=${AUTH_AUDIENCE}
-DATABASE_URI=${DATABASE_URI}
+DYNAMO_ACCESS_KEY=${DYNAMO_ACCESS_KEY}
+DYNAMO_SECRET_KEY=${DYNAMO_SECRET_KEY}
 
 echo "Starting to replace the AWS environment variables."
 
 sed -i -e "s,\#{AUTH_AUTHORITY}\#,"AUTH_AUTHORITY",g"\
-    -e "s,\#{AUTH_AUDIENCE}\#,"AUTH_AUDIENCE",g"\
-    -e "s,\#{DATABASE_URI}\#,"DATABASE_URI",g"\
+    -e "s,\#{DYNAMO_ACCESS_KEY}\#,"DYNAMO_ACCESS_KEY",g"\
+    -e "s,\#{DYNAMO_SECRET_KEY}\#,"DYNAMO_SECRET_KEY",g"\
     $FILEPATH

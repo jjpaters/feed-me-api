@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-using FeedMe.Api.Models.Diagnostics;
+﻿using FeedMe.Api.Models.Diagnostics;
 using FeedMe.Api.Repositories.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace FeedMe.Api.Controllers.Diagnostics
 {

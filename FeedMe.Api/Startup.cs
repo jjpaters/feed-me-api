@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using System.Reflection;
-using System.Text.Json.Serialization;
 using FeedMe.Api.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,6 +5,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.IO;
+using System.Reflection;
+using System.Text.Json.Serialization;
 
 namespace FeedMe.Api
 {
@@ -34,7 +34,7 @@ namespace FeedMe.Api
                 });
             });
 
-            services.AddDependencies();
+            services.AddDependencies(Configuration);
 
             services.AddControllers().AddJsonOptions(c =>
             {
