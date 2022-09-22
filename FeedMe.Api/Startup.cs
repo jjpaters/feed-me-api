@@ -30,7 +30,7 @@ namespace FeedMe.Api
             {
                 options.AddDefaultPolicy(policy =>
                 {
-                    policy.WithOrigins(Configuration["AllowOrigins"]);
+                    policy.WithOrigins(Configuration.GetSection("AllowOrigins").Get<string[]>());
                 });
             });
 
