@@ -10,7 +10,8 @@ namespace FeedMe.Api.Models.Recipes
         Appetizer,
         Dinner,
         Snack,
-        Drink
+        Drink,
+        Dessert
     }
 }
 
