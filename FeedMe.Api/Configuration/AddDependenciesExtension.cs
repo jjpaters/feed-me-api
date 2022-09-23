@@ -3,6 +3,7 @@ using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using FeedMe.Api.Repositories.Diagnostics;
 using FeedMe.Api.Repositories.Recipes;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
@@ -16,6 +17,7 @@ namespace FeedMe.Api.Configuration
         {
             services.AddTransient<IHealthCheckRepository, HealthCheckRepository>();
             services.AddTransient<IRecipeRepository, RecipeRepository>();
+            services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
 
             // DynamoDB
             var dynamoConfig = new AmazonDynamoDBConfig()

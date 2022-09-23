@@ -19,7 +19,7 @@ namespace FeedMe.Api.Controllers.Recipes
         {
             this.recipeRepository = recipeRepository;
         }
-
+                
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -67,7 +67,7 @@ namespace FeedMe.Api.Controllers.Recipes
             return Ok(responseData);
         }
 
-        [HttpPut]
+        [HttpPut]        
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<Recipe>> UpdateRecipe(Recipe updateRecipe)
