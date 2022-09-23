@@ -67,11 +67,16 @@ namespace FeedMe.Api.Controllers.Recipes
             return Ok(responseData);
         }
 
-        [HttpPut]        
+        [HttpPut("{recipeId}")]        
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<Recipe>> UpdateRecipe(Recipe updateRecipe)
+        public async Task<ActionResult<Recipe>> UpdateRecipe(string recipeId, Recipe updateRecipe)
         {
+            if (!string.Equals(recipeId, updateRecipe.RecipeId))
+            {
+                return BadRequest("Recipe ID does not match the Recipe object.");
+            }
+
             var responseData = await this.recipeRepository.UpdateRecipe(this.Username, updateRecipe);
 
             return Ok(responseData);
