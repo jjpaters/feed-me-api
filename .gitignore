@@ -6,6 +6,7 @@ project.lock.json
 nupkg/
 .DS_Store
 package/
+shared-local-instance.db
 
 # Visual Studio Code
 .vscode

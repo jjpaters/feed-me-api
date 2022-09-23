@@ -30,7 +30,7 @@ namespace FeedMe.Api.Controllers.Recipes
             return Created($"/recipes/{responseData.RecipeId}", responseData);
         }
 
-        [HttpDelete]
+        [HttpDelete("{recipeId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult> DeleteRecipe(string recipeId)
@@ -60,9 +60,9 @@ namespace FeedMe.Api.Controllers.Recipes
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<IList<Recipe>>> GetRecipes()
+        public async Task<ActionResult<IList<Recipe>>> GetRecipes(RecipeCategories? category = null)
         {
-            var responseData = await this.recipeRepository.GetRecipes(this.Username);
+            var responseData = await this.recipeRepository.GetRecipes(this.Username, category);
 
             return Ok(responseData);
         }

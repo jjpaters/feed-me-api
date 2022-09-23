@@ -49,14 +49,14 @@ namespace FeedMe.Api.Repositories.Recipes
             return recipes?.FirstOrDefault();
         }
 
-        public async Task<IList<Recipe>> GetRecipes(string userId, string category = null)
+        public async Task<IList<Recipe>> GetRecipes(string userId, RecipeCategories? category = null)
         {
             var scanConditions = new List<ScanCondition>
             {
                 new ScanCondition("UserId", ScanOperator.Equal, userId)
             };
 
-            if (!string.IsNullOrEmpty(category))
+            if (category.HasValue)
             {
                 scanConditions.Add(new ScanCondition("Category", ScanOperator.Equal, category));
             }

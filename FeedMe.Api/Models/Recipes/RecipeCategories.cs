@@ -7,10 +7,10 @@ namespace FeedMe.Api.Models.Recipes
         Breakfast,
         Brunch,
         Lunch,
-        Appetizer,
+        Appetizers,
         Dinner,
-        Snack,
-        Drink,
+        Snacks,
+        Drinks,
         Dessert
     }
 }

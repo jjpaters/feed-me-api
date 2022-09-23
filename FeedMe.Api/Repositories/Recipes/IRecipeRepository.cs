@@ -35,7 +35,7 @@ namespace FeedMe.Api.Repositories.Recipes
         /// <param name="userId">Identifier of the user</param>
         /// <param name="category">Optional category to filter the recipes</param>
         /// <returns>Associated recipes</returns>
-        Task<IList<Recipe>> GetRecipes(string userId, string category = null);
+        Task<IList<Recipe>> GetRecipes(string userId, RecipeCategories? category = null);
 
         /// <summary>
         /// Update a Recipe for a given User.
