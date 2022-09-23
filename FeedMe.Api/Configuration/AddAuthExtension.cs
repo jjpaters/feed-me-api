@@ -26,6 +26,12 @@ namespace FeedMe.Api.Configuration
                 };
             });
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("read:recipes", policy => policy.Requirements.Add(new HasScopeRequirement("read:recipes", config["Auth:Authority"])));
+                options.AddPolicy("write:recipes", policy => policy.Requirements.Add(new HasScopeRequirement("write:recipes", config["Auth:Authority"])));
+            });
+
             return services;
         }
     }
