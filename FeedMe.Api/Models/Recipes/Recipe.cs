@@ -1,6 +1,4 @@
 ﻿using Amazon.DynamoDBv2.DataModel;
-using Amazon.DynamoDBv2.Model;
-using System.Collections.Generic;
 
 namespace FeedMe.Api.Models.Recipes
 {
@@ -29,6 +27,7 @@ namespace FeedMe.Api.Models.Recipes
             this.CookTime = createRecipe.CookTime;
             this.Steps = createRecipe.Steps;
             this.IngredientGroups = createRecipe.IngredientGroups;
+            this.Notes = createRecipe.Notes;
         }
     }
 }

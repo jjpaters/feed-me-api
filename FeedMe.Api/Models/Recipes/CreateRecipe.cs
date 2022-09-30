@@ -23,5 +23,7 @@ namespace FeedMe.Api.Models.Recipes
 
         [DynamoDBProperty(typeof(DynamoJsonSerializeConverter<IList<IngredientGroup>>))]
         public IList<IngredientGroup> IngredientGroups { get; set; }
+
+        public string Notes { get; set; }
     }
 }
