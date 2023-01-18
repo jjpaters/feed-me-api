@@ -62,7 +62,7 @@ jobs:
             dotnet test --logger "trx"
             trx2junit **/TestResults/*.trx
       - store_test_results:
-           path: tests/TestResults
+           path: FeedMe.Api.Tests/TestResults
 
   deploy:
     docker:
