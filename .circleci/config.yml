@@ -65,7 +65,7 @@ jobs:
       - store_test_results:
            path: FeedMe.Api.Tests/TestResults
       - store_artifacts:
-           path: FeedMe.Api.Tests/TestResults/**.xml
+           path: FeedMe.Api.Tests/TestResults
 
   deploy:
     docker:
