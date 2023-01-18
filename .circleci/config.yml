@@ -59,8 +59,9 @@ jobs:
             export PATH="$PATH:/root/.dotnet/tools"
             dotnet tool install -g coveralls.net
             dotnet tool install -g trx2junit
-            dotnet test --logger "trx"
+            dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --logger "trx"
             trx2junit **/TestResults/*.trx
+
       - store_test_results:
            path: FeedMe.Api.Tests/TestResults
       - store_artifacts:
