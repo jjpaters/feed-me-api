@@ -61,7 +61,7 @@ jobs:
             dotnet tool install -g trx2junit
             dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --logger "trx"
             trx2junit **/TestResults/*.trx
-
+            csmacnz.Coveralls --opencover --input FeedMe.Api.Tests/TestResults/**.xml --useRelativePaths
       - store_test_results:
            path: FeedMe.Api.Tests/TestResults
       - store_artifacts:
