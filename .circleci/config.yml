@@ -41,7 +41,7 @@ jobs:
             apt-get update && apt-get -y install zip
             export PATH="$PATH:/root/.dotnet/tools"
             dotnet tool install -g Amazon.Lambda.Tools
-            dotnet lambda package -pl ./FeedMe.Api -o ./package/lambda.zip -c Release -f netcoreapp3.1
+            dotnet lambda package -pl ./FeedMe.Api -o ./package/lambda.zip -c Release -f net6.0
       - persist_to_workspace:
           root: .
           paths:
