@@ -60,7 +60,7 @@ jobs:
             dotnet tool install -g coveralls.net
             dotnet tool install -g trx2junit
             dotnet test --logger "trx"
-            trx2junit tests/**/TestResults/*.trx
+            trx2junit **/TestResults/*.trx
       - store_test_results:
            path: tests/TestResults
 
