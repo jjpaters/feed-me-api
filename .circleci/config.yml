@@ -63,6 +63,8 @@ jobs:
             trx2junit **/TestResults/*.trx
       - store_test_results:
            path: FeedMe.Api.Tests/TestResults
+      - store_artifacts:
+           path: FeedMe.Api.Tests/TestResults/**.xml
 
   deploy:
     docker:
