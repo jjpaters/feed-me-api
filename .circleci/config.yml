@@ -54,13 +54,18 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Restore Project Dependencies
-          command: dotnet restore
-      - run:
           name: Run Unit Tests
           command: |
             export PATH="$PATH:/root/.dotnet/tools"
-            dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+            dotnet tool install -g coveralls.net
+            dotnet tool install -g trx2junit
+            dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --logger "trx"
+            trx2junit **/TestResults/*.trx
+            csmacnz.Coveralls --opencover --input FeedMe.Api.Tests/TestResults/**.xml --useRelativePaths
+      - store_test_results:
+           path: FeedMe.Api.Tests/TestResults
+      - store_artifacts:
+           path: FeedMe.Api.Tests/TestResults
 
   deploy:
     docker:

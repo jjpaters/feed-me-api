@@ -11,6 +11,10 @@ shared-local-instance.db
 # Visual Studio Code
 .vscode
 
+# Test files
+coverage.opencover.xml
+[Tt]estResults/
+
 # Rider
 .idea
 
